@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet';
 import Navbar from '../components/Navbar';
+import ServiceCard from '../components/ServiceCard';
 import './Home.css';
 
 const Home = () => {
@@ -44,9 +45,31 @@ const Home = () => {
 
       {/* Services Section */}
       <div id='services' className='section-separator'></div>
-      <div className='section-placeholder'>
-        <h2>Services</h2>
-        <p>Coming soon...</p>
+      <div className='services-section'>
+        <div className='services-header'>
+          <h2 className='services-heading'>Services</h2>
+          <p className='services-text'>What I can offer</p>
+        </div>
+        <div className='services-cards'>
+          <ServiceCard
+            icon='/mobile-200h.png'
+            alt='Mobile application development icon'
+            title='Mobile Applications'
+            description='Do you want to turn your requirements into beautiful mobile apps? Let me help!'
+          />
+          <ServiceCard
+            icon='/cloud-200h.png'
+            alt='Cloud migration services icon'
+            title='Cloud Migration'
+            description='Do you want to use cloud architecture like AWS in your product? Let me help!'
+          />
+          <ServiceCard
+            icon='/desk-200h.png'
+            alt='Freelancing services icon'
+            title='Freelancing'
+            description='Do you want someone extra to help out building of your product? Let me help!'
+          />
+        </div>
       </div>
 
       {/* Experience Section */}
