@@ -15,9 +15,26 @@ const Home = () => {
       <Navbar />
       <div className="section-separator"></div>
       
-      <div className="home-content">
-        <h1>Welcome to Portfolio</h1>
-        <p>Under construction...</p>
+      {/* Hero Section */}
+      <div className="home-hero">
+        <div className="hero-content">
+          <div className="hero-text-container">
+            <h1 className="hero-heading">
+              <span>Build something</span>
+              <br />
+              <span>great today</span>
+            </h1>
+            <p className="hero-text">
+              As a software engineer, I help companies deliver the right message to their customers.
+            </p>
+            <div className="hero-cta-container">
+              <a href="#contact" className="hero-cta-btn">
+                <span>Contact me</span>
+              </a>
+            </div>
+          </div>
+          <img alt="Portfolio showcase on mobile device" src="/phone-1400w.png" className="hero-image" />
+        </div>
       </div>
       
       {/* Services Section */}
