@@ -93,6 +93,52 @@
   }
 }
 
+/* Services Section */
+.services-section {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.services-heading {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.services-text {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.services-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+@media (max-width: 768px) {
+  .services-section {
+    padding: 3rem 1rem;
+  }
+
+  .services-heading {
+    font-size: 2.5rem;
+  }
+
+  .services-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 .section-placeholder {
   padding: 4rem 2rem;
   text-align: center;
