@@ -12,7 +12,24 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test --env=jsdom",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint src/ --ext .js,.jsx,.ts,.tsx --fix",
+    "format": "prettier --write src/",
+    "format:check": "prettier --check src/",
+    "check": "npm run lint && npm run format:check",
+    "validate": "npm run check && npm run build",
+    "pre-push": "npm run validate",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "src/**/*.{css,scss,json,md}": [
+      "prettier --write"
+    ]
   },
   "engines": {
     "node": "18.x"
@@ -30,7 +47,19 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/eslint-parser": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
     "@craco/craco": "^7.1.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.3",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
+    "prop-types": "^15.8.1",
     "react-scripts": "^5.0.1"
   }
 }
