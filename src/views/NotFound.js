@@ -3,16 +3,18 @@ import { useHistory } from 'react-router-dom';
 
 const NotFound = () => {
   const history = useHistory();
-  
+
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-      flexDirection: 'column',
-      textAlign: 'center',
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        flexDirection: 'column',
+        textAlign: 'center',
+      }}
+    >
       <Helmet>
         <title>404 - Not Found</title>
       </Helmet>
@@ -31,7 +33,7 @@ const NotFound = () => {
           cursor: 'pointer',
         }}
         onClick={() => history.push('/')}
-        aria-label="Go to home page"
+        aria-label='Go to home page'
       >
         Go Home
       </button>
