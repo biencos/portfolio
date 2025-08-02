@@ -73,6 +73,13 @@ Details: [LINTING.md](./LINTING.md)
 
 Built by **biencos** - [GitHub](https://github.com/biencos)
 
+
+## 📄 License
+
+MIT License - see [LICENSE](./LICENSE) file for details.
+
+Copyright © 2025 [biencos](https://github.com/biencos)
+
 ---
 
 ⭐ **Star this repo if you found it helpful!**
