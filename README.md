@@ -4,6 +4,7 @@
 
 [![Code Quality](https://github.com/biencos/portfolio/workflows/🔍%20Code%20Quality/badge.svg)](https://github.com/biencos/portfolio/actions)
 [![React](https://img.shields.io/badge/react-17.0.2-blue)](https://reactjs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## ✨ Features
 
@@ -64,3 +65,10 @@ Details: [LINTING.md](./LINTING.md)
 ## 👨‍💻 About
 
 Built by **biencos** - [GitHub](https://github.com/biencos)
+
+
+## 📄 License
+
+MIT License - see [LICENSE](./LICENSE) file for details.
+
+Copyright © 2025 [biencos](https://github.com/biencos)
