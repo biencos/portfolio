@@ -48,6 +48,22 @@ npm run validate   # Full validation
 ```
 
 
+## 🛠️ Makefile Commands
+
+For convenience, this project includes a Makefile with common development commands:
+
+```
+make all        # Complete workflow
+make install    # Install dependencies
+make run        # Start development
+make build      # Production build
+make lint       # Check code quality
+make lintfix    # Fix formatting issues
+make format     # Format code with Prettier
+make validate   # Full quality check
+make clean      # Clean build artifacts
+```
+
 ## 📁 Structure
 
 ```
