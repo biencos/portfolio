@@ -25,13 +25,13 @@ jobs:
         run: npm ci
 
       - name: 🔍 Run ESLint
-        run: npm run lint
+        run: make lint
 
       - name: 💅 Check code formatting
         run: npm run format:check
 
       - name: 🏗️ Test build
-        run: npm run build
+        run: make build
 
   quality-gate:
     name: ✅ Quality Gate
@@ -52,7 +52,7 @@ jobs:
         run: npm ci
 
       - name: 🎯 Run full validation
-        run: npm run validate
+        run: make validate
 
       - name: 📊 Report success
         run: echo "🎉 All quality checks passed!"
