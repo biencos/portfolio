@@ -12,6 +12,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test --env=jsdom",
+    "test:coverage": "craco test --env=jsdom --coverage --watchAll=false",
+    "test:ci": "craco test --env=jsdom --coverage --watchAll=false --ci",
     "eject": "craco eject",
     "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint src/ --ext .js,.jsx,.ts,.tsx --fix",
@@ -51,6 +53,8 @@
     "@babel/eslint-parser": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
     "@craco/craco": "^7.1.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^12.1.5",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.3",
@@ -61,5 +65,17 @@
     "prettier": "^3.6.2",
     "prop-types": "^15.8.1",
     "react-scripts": "^5.0.1"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/build/",
+      "/coverage/",
+      "src/index.js",
+      "src/setupTests.js",
+      "src/utils/testUtils.js",
+      "\\.css$",
+      "craco.config.js"
+    ]
   }
 }
