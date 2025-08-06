@@ -1,20 +1,20 @@
 # Portfolio Project Makefile
 
-.PHONY: all install run build lint lintfix format validate clean
+.PHONY: all install run build lint lintfix format format-check validate clean
 
-# Complete workflow - clean, install, fix, validate, build, then run
-all: clean install lintfix format validate build run
+# Complete development workflow
+all: clean lintfix format validate run
 
 # Install dependencies
 install:
 	npm install
 
 # Start development server
-run: lintfix install
+run: install
 	npm start
 
 # Build for production
-build: validate
+build:
 	npm run build
 
 # Check code quality
@@ -29,7 +29,11 @@ lintfix:
 format:
 	npm run format
 
-# Full validation (lint + format check + tests)
+# Check code formatting
+format-check:
+	npm run format:check
+
+# Full validation (lint + format check + build)
 validate:
 	npm run validate
 
