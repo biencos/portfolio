@@ -1,0 +1,37 @@
+# Deployment pipeline for Netlify
+name: 🚀 CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, dev]
+    tags: ['v*']
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  deployment-readiness:
+    name: Deployment Readiness
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build application
+        run: make build
+        
+      - name: Verify Netlify requirements
+        run: |
+          test -f netlify.toml
+          test -d build/
+          test -f build/index.html
+          echo "✅ Deployment ready for Netlify"
