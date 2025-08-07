@@ -1,16 +1,19 @@
 # Portfolio Project Makefile
 
-.PHONY: all install run build lint lintfix format format-check validate clean
+.PHONY: all run install start build lint lintfix format format-check validate clean
 
 # Complete development workflow
-all: clean lintfix format validate run
+all: clean install lintfix format validate start
+
+# Install dependencies and start development server
+run: install start
 
 # Install dependencies
 install:
 	npm install
 
-# Start development server
-run: install
+# Start development server (assume dependencies are installed)
+start:
 	npm start
 
 # Build for production

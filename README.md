@@ -33,10 +33,22 @@
 # Clone and install
 git clone https://github.com/biencos/portfolio.git
 cd portfolio
+```
+
+Then run this project with: 
+```bash
+# Install dependencies
 npm install
 
-# Start development
+# Start development server
 npm start
+```
+
+Or alternatively use a Makefile command:
+
+```bash
+# Install dependencies and start development server
+make run
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
@@ -52,15 +64,20 @@ npm run format     # Format with Prettier
 npm run validate   # Full validation
 ```
 
+_Tip: You can use the Makefile commands as shortcuts for common npm scripts._
+
 
 ## 🛠️ Makefile Commands
 
 For convenience, this project includes a Makefile with common development commands:
 
+> **Note:** Running `make` with no arguments defaults to `make all`.
+
 ```
-make all          # Complete development workflow (clean, fix, validate, run)
+make all          # Complete development workflow (clean, install, lintfix, format, validate, start)
+make run          # Install dependencies and start development server
 make install      # Install dependencies
-make run          # Start development server
+make start        # Start development server (assume dependencies are installed)
 make build        # Production build
 make lint         # Check code quality
 make lintfix      # Fix linting issues
