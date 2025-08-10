@@ -29,3 +29,12 @@ jobs:
         
       - name: 🎨 Check formatting
         run: make format-check
+
+      - name: 🧪 Run tests
+        run: make test-ci
+
+      - name: 📊 Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests

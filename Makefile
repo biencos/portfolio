@@ -1,9 +1,9 @@
 # Portfolio Project Makefile
 
-.PHONY: all run install start build lint lintfix format format-check validate clean
+.PHONY: all run install start build lint lintfix format format-check test test-coverage test-ci validate clean
 
 # Complete development workflow
-all: clean install lintfix format validate start
+all: clean install lintfix format test-coverage validate start
 
 # Install dependencies and start development server
 run: install start
@@ -36,9 +36,21 @@ format:
 format-check:
 	npm run format:check
 
-# Full validation (lint + format check + build)
-validate:
-	npm run validate
+# Run tests
+test:
+	npm test -- --watchAll=false
+
+# Run tests with coverage
+test-coverage:
+	npm run test:coverage
+
+# Run tests for CI
+test-ci:
+	npm run test:ci
+
+# Full validation (for local use only)
+validate: lint format-check test-ci
+	@echo "✅ All validation checks passed!"
 
 # Clean build artifacts
 clean:
