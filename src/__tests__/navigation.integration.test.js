@@ -1,0 +1,53 @@
+import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { Route, Switch } from 'react-router-dom';
+import Home from '../views/Home';
+import NotFound from '../views/NotFound';
+import { renderWithRouter } from '../utils/testUtils';
+
+// Test App routing behavior
+const TestApp = () => (
+  <Switch>
+    <Route exact path='/' component={Home} />
+    <Route component={NotFound} />
+  </Switch>
+);
+
+describe('Navigation Integration', () => {
+  it('renders home page by default', async () => {
+    const { history } = renderWithRouter(<TestApp />);
+    expect(history.location.pathname).toBe('/');
+
+    await waitFor(() => {
+      expect(screen.getByText(/build something/i)).toBeInTheDocument();
+    });
+  });
+
+  it('navigates to 404 page for invalid routes', async () => {
+    const { history } = renderWithRouter(<TestApp />, {
+      initialEntries: ['/invalid-route'],
+    });
+
+    expect(history.location.pathname).toBe('/invalid-route');
+
+    await waitFor(() => {
+      expect(screen.getByText(/page not found/i)).toBeInTheDocument();
+    });
+  });
+
+  it('can navigate back to home from 404 page', async () => {
+    const { history } = renderWithRouter(<TestApp />, {
+      initialEntries: ['/invalid-route'],
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(/page not found/i)).toBeInTheDocument();
+    });
+
+    const homeButton = screen.getByRole('button', { name: /go to home page/i });
+    fireEvent.click(homeButton);
+
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/');
+    });
+  });
+});
