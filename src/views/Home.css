@@ -159,6 +159,88 @@
   color: #ccc;
 }
 
+/* Experience Section */
+.experience-section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: transparent;
+  position: relative;
+}
+
+.experience-header {
+  text-align: center;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 2;
+}
+
+.experience-heading {
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.experience-text {
+  font-size: 1.2rem;
+  color: #ccc;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Experience Grid */
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Switch to single column when screen is too narrow for 3 cards */
+@media (max-width: 1200px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    justify-items: center;
+  }
+}
+
+/* Horizontal layout ordering (right to left): Senior, Full Stack, Freelance */
+@media (min-width: 1201px) {
+  .experience-card[data-position='Senior Software Engineer'] {
+    order: 3;
+  }
+
+  .experience-card[data-position='Full Stack Developer'] {
+    order: 2;
+  }
+
+  .experience-card[data-position='Freelance Developer'] {
+    order: 1;
+  }
+}
+
+/* Center the grid when cards stack vertically */
+@media (max-width: 1200px) {
+  /* Vertical layout ordering (top to bottom): Senior, Full Stack, Freelance */
+  .experience-card[data-position='Senior Software Engineer'] {
+    order: 1;
+  }
+
+  .experience-card[data-position='Full Stack Developer'] {
+    order: 2;
+  }
+
+  .experience-card[data-position='Freelance Developer'] {
+    order: 3;
+  }
+}
+
 @media (max-width: 768px) {
   .home-content h1 {
     font-size: 2rem;
