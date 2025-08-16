@@ -42,6 +42,20 @@ describe('Home Page Integration', () => {
     expect(serviceCards.length).toBeGreaterThan(0);
   });
 
+  it('renders experience section with professional cards', () => {
+    renderWithRouter(<Home />);
+
+    expect(screen.getByText('Professional Experience')).toBeInTheDocument();
+    expect(
+      screen.getByText(/Key roles and achievements in my development career/)
+    ).toBeInTheDocument();
+
+    // Check for experience items
+    expect(screen.getByText('Senior Software Engineer')).toBeInTheDocument();
+    expect(screen.getByText('Tech Solutions Inc.')).toBeInTheDocument();
+    expect(screen.getByText('2023 - Present')).toBeInTheDocument();
+  });
+
   it('maintains responsive structure', () => {
     const { container } = renderWithRouter(<Home />);
 

@@ -14,6 +14,27 @@ jest.mock('../../components/ServiceCard', () => {
   };
 });
 
+// Mock ExperienceCard component
+jest.mock('../../components/ExperienceCard', () => {
+  const MockExperienceCard = ({ experience }) => {
+    return (
+      <div data-testid='experience-card'>
+        <h3>{experience.position}</h3>
+        <p>{experience.company}</p>
+      </div>
+    );
+  };
+
+  MockExperienceCard.propTypes = {
+    experience: require('prop-types').shape({
+      position: require('prop-types').string.isRequired,
+      company: require('prop-types').string.isRequired,
+    }).isRequired,
+  };
+
+  return MockExperienceCard;
+});
+
 // Mock Navbar component
 jest.mock('../../components/Navbar', () => {
   return function MockNavbar() {
@@ -30,7 +51,9 @@ describe('Home View', () => {
   it('includes meta tags for SEO', () => {
     renderWithRouter(<Home />);
     // React Helmet doesn't work in test environment, so we check if the component renders
-    expect(screen.getByText(/software engineer/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/as a software engineer, i help companies/i)
+    ).toBeInTheDocument();
   });
 
   it('renders hero section with main heading', () => {
@@ -65,5 +88,13 @@ describe('Home View', () => {
 
     const serviceCards = screen.getAllByTestId('service-card');
     expect(serviceCards.length).toBeGreaterThan(0);
+  });
+
+  it('renders experience section', () => {
+    renderWithRouter(<Home />);
+
+    expect(screen.getByText('Professional Experience')).toBeInTheDocument();
+    const experienceCards = screen.getAllByTestId('experience-card');
+    expect(experienceCards.length).toBeGreaterThan(0);
   });
 });
