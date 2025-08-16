@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './style.css';
 
@@ -9,7 +9,7 @@ const NotFound = lazy(() => import('./views/NotFound'));
 
 const App = () => {
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Suspense
         fallback={
           <div
@@ -41,13 +41,15 @@ const App = () => {
           </div>
         }
       >
-        <Switch>
-          <Route component={Home} exact path='/' />
-          <Route component={NotFound} path='*' />
-        </Switch>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
       </Suspense>
     </Router>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('app'));
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(<App />);

@@ -1,13 +1,12 @@
 import { render } from '@testing-library/react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import { MemoryRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 /**
  * Enhanced router rendering with better options
  * @param {React.Component} component - Component to render
  * @param {Object} options - Render options
- * @returns {Object} Render result with history
+ * @returns {Object} Render result
  */
 export const renderWithRouter = (component, options = {}) => {
   const {
@@ -16,18 +15,26 @@ export const renderWithRouter = (component, options = {}) => {
     ...renderOptions
   } = options;
 
-  const history = createMemoryHistory({ initialEntries, initialIndex });
-
   const result = render(
-    <Router history={history}>{component}</Router>,
+    <MemoryRouter
+      initialEntries={initialEntries}
+      initialIndex={initialIndex}
+      future={{ v7_startTransition: true, v7_relativeSplatPath: true }}
+    >
+      {component}
+    </MemoryRouter>,
     renderOptions
   );
 
   return {
     ...result,
-    history,
-    // Helper to navigate in tests
-    navigate: path => history.push(path),
+    // Helper for compatibility (no longer returns history object)
+    navigate: () => {
+      // eslint-disable-next-line no-console
+      console.warn(
+        'navigate() is deprecated in React Router v6. Use useNavigate() hook instead.'
+      );
+    },
   };
 };
 
