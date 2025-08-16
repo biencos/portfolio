@@ -1,21 +1,20 @@
 import { screen, fireEvent, waitFor } from '@testing-library/react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Home from '../views/Home';
 import NotFound from '../views/NotFound';
 import { renderWithRouter } from '../utils/testUtils';
 
 // Test App routing behavior
 const TestApp = () => (
-  <Switch>
-    <Route exact path='/' component={Home} />
-    <Route component={NotFound} />
-  </Switch>
+  <Routes>
+    <Route path='/' element={<Home />} />
+    <Route path='*' element={<NotFound />} />
+  </Routes>
 );
 
 describe('Navigation Integration', () => {
   it('renders home page by default', async () => {
-    const { history } = renderWithRouter(<TestApp />);
-    expect(history.location.pathname).toBe('/');
+    renderWithRouter(<TestApp />);
 
     await waitFor(() => {
       expect(screen.getByText(/build something/i)).toBeInTheDocument();
@@ -23,11 +22,9 @@ describe('Navigation Integration', () => {
   });
 
   it('navigates to 404 page for invalid routes', async () => {
-    const { history } = renderWithRouter(<TestApp />, {
+    renderWithRouter(<TestApp />, {
       initialEntries: ['/invalid-route'],
     });
-
-    expect(history.location.pathname).toBe('/invalid-route');
 
     await waitFor(() => {
       expect(screen.getByText(/page not found/i)).toBeInTheDocument();
@@ -35,7 +32,7 @@ describe('Navigation Integration', () => {
   });
 
   it('can navigate back to home from 404 page', async () => {
-    const { history } = renderWithRouter(<TestApp />, {
+    renderWithRouter(<TestApp />, {
       initialEntries: ['/invalid-route'],
     });
 
@@ -47,7 +44,7 @@ describe('Navigation Integration', () => {
     fireEvent.click(homeButton);
 
     await waitFor(() => {
-      expect(history.location.pathname).toBe('/');
+      expect(screen.getByText(/build something/i)).toBeInTheDocument();
     });
   });
 });

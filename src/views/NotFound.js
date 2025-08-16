@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const NotFound = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <div
@@ -32,7 +32,7 @@ const NotFound = () => {
           borderRadius: '4px',
           cursor: 'pointer',
         }}
-        onClick={() => history.push('/')}
+        onClick={() => navigate('/')}
         aria-label='Go to home page'
       >
         Go Home
