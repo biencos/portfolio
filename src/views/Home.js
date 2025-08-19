@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet';
 import Navbar from '../components/Navbar';
 import ServiceCard from '../components/ServiceCard';
 import ExperienceCard from '../components/ExperienceCard';
+import ClientFlags from '../components/ClientFlags';
 import './Home.css';
 
 const Home = () => {
@@ -134,6 +135,10 @@ const Home = () => {
           ))}
         </div>
       </section>
+
+      {/* Client Flags Section */}
+      <div className='section-separator'></div>
+      <ClientFlags />
 
       {/* Contact Section */}
       <div id='contact' className='section-separator'></div>

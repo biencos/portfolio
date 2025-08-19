@@ -1,0 +1,209 @@
+.client-flags-section {
+  padding: 0.75rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.client-flags-container {
+  text-align: center;
+}
+
+.client-flags-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.client-flags-main-heading {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.client-flags-heading {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Scroll container for infinite animation */
+.client-flags-scroll-container {
+  overflow: hidden;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+/* Infinite scrolling row */
+.client-flags-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4rem;
+  animation: scrollFlags 30s linear infinite;
+  width: fit-content;
+}
+
+/* Individual flag item */
+.client-flag-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.28rem;
+  flex: 0 0 auto;
+  min-width: 191px;
+}
+
+/* Flag image */
+.client-flag-image {
+  width: 191px;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.client-flag-image:hover {
+  transform: translateY(-4px);
+}
+
+/* Country name below flag */
+.client-flag-name {
+  color: #fff;
+  font-size: 1.08rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 191px; /* Match flag width */
+}
+
+/* Infinite scroll animation */
+@keyframes scrollFlags {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      -33.333%
+    ); /* Move by 1/3 to cycle through tripled content */
+  }
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) {
+  .client-flags-section {
+    padding: 0.5rem 1.5rem;
+  }
+
+  .client-flags-main-heading {
+    font-size: 2rem;
+  }
+
+  .client-flags-heading {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .client-flags-scroll-container {
+    width: 90%;
+  }
+
+  .client-flags-row {
+    gap: 3rem;
+    animation: scrollFlags 25s linear infinite;
+  }
+
+  .client-flag-item {
+    min-width: 153px;
+    gap: 0.22rem;
+  }
+
+  .client-flag-image {
+    width: 153px;
+  }
+
+  .client-flag-name {
+    font-size: 0.97rem;
+    max-width: 153px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .client-flags-section {
+    padding: 0.5rem 1rem;
+  }
+
+  .client-flags-main-heading {
+    font-size: 1.8rem;
+  }
+
+  .client-flags-heading {
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .client-flags-scroll-container {
+    width: 90%;
+  }
+
+  .client-flags-row {
+    gap: 2rem;
+    animation: scrollFlags 20s linear infinite;
+  }
+
+  .client-flag-item {
+    min-width: 128px;
+    gap: 0.22rem;
+  }
+
+  .client-flag-image {
+    width: 128px;
+  }
+
+  .client-flag-name {
+    font-size: 0.92rem;
+    max-width: 128px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  .client-flags-section {
+    padding: 0.375rem 1rem;
+  }
+
+  .client-flags-main-heading {
+    font-size: 1.5rem;
+  }
+
+  .client-flags-heading {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .client-flags-scroll-container {
+    width: 90%;
+  }
+
+  .client-flags-row {
+    gap: 1.5rem;
+    animation: scrollFlags 15s linear infinite;
+  }
+
+  .client-flag-item {
+    min-width: 102px;
+    gap: 0.22rem;
+  }
+
+  .client-flag-image {
+    width: 102px;
+  }
+
+  .client-flag-name {
+    font-size: 0.86rem;
+    max-width: 102px;
+  }
+}
