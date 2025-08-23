@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import ServiceCard from '../components/ServiceCard';
 import ExperienceCard from '../components/ExperienceCard';
 import ClientFlags from '../components/ClientFlags';
+import Footer from '../components/Footer';
 import './Home.css';
 
 const Home = () => {
@@ -146,6 +147,9 @@ const Home = () => {
         <h2>Contact</h2>
         <p>Coming soon...</p>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

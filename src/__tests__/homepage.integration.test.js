@@ -7,10 +7,11 @@ describe('Home Page Integration', () => {
   it('renders complete homepage with all components', () => {
     renderWithRouter(<Home />);
 
-    // Navbar integration
-    expect(
-      screen.getByRole('img', { name: /portfolio logo/i })
-    ).toBeInTheDocument();
+    // Navbar and Footer integration
+    const logos = screen.getAllByRole('img', { name: /portfolio logo/i });
+    expect(logos).toHaveLength(2); // One in navbar, one in footer
+    expect(logos[0]).toHaveClass('navbar-logo');
+    expect(logos[1]).toHaveClass('footer-logo');
     expect(screen.getByRole('link', { name: /home/i })).toBeInTheDocument();
 
     // Hero section integration

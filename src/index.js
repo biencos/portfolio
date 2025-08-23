@@ -6,6 +6,8 @@ import './style.css';
 
 const Home = lazy(() => import('./views/Home'));
 const NotFound = lazy(() => import('./views/NotFound'));
+const PrivacyPolicy = lazy(() => import('./views/PrivacyPolicy'));
+const TermsOfUse = lazy(() => import('./views/TermsOfUse'));
 
 const App = () => {
   return (
@@ -43,6 +45,8 @@ const App = () => {
       >
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='/terms-of-use' element={<TermsOfUse />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Suspense>
