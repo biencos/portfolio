@@ -39,16 +39,122 @@
   color: #666;
 }
 
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+}
+
+.hamburger-icon {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 400ms;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.hamburger-icon.active {
+  transform: rotate(45deg);
+}
+
+.line {
+  fill: none;
+  transition:
+    stroke-dasharray 400ms,
+    stroke-dashoffset 400ms;
+  stroke: #000;
+  stroke-width: 5.5;
+  stroke-linecap: round;
+}
+
+.hamburger-icon .top {
+  stroke-dasharray: 40 160;
+}
+
+.hamburger-icon .middle {
+  stroke-dasharray: 40 142;
+  transform-origin: 50%;
+  transition: transform 400ms;
+}
+
+.hamburger-icon .bottom {
+  stroke-dasharray: 40 85;
+  transform-origin: 50%;
+  transition:
+    transform 400ms,
+    stroke-dashoffset 400ms;
+}
+
+.hamburger-icon.active .top {
+  stroke-dashoffset: -64px;
+}
+
+.hamburger-icon.active .middle {
+  transform: rotate(90deg);
+}
+
+.hamburger-icon.active .bottom {
+  stroke-dashoffset: -64px;
+}
+
 @media (max-width: 768px) {
+  .navbar-container {
+    padding: 0.45rem 0;
+  }
+
   .navbar {
     padding: 0 1rem;
   }
 
+  .hamburger {
+    display: flex;
+  }
+
   .navbar-links {
-    gap: 1rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navbar-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
 
   .navbar-link {
-    font-size: 0.9rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    text-align: center;
+    display: block;
+  }
+
+  .navbar-link:last-child {
+    border-bottom: none;
+  }
+
+  .navbar-link:hover {
+    background: rgba(0, 0, 0, 0.05);
   }
 }
