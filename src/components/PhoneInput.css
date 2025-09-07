@@ -1,0 +1,82 @@
+.phone-input-wrapper .react-tel-input .form-control:focus {
+  outline: none !important;
+  background-color: #2d3748 !important;
+  transform: translateY(-2px) !important;
+  border-color: rgba(226, 232, 240, 0.2) !important;
+  box-shadow: 0 0 0 3px rgba(160, 174, 192, 0.1) !important;
+}
+
+.phone-input-wrapper.typing .react-tel-input .form-control:focus {
+  border-color: #1e3a8a !important;
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.3) !important;
+}
+
+.phone-input-wrapper.valid .react-tel-input .form-control:focus {
+  border-color: #22c55e !important;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3) !important;
+}
+
+.phone-input-wrapper.error .react-tel-input .form-control:focus {
+  border-color: #ff6b6b !important;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3) !important;
+}
+
+/* Search input styling */
+.react-tel-input .country-list .search-box {
+  background-color: #374151 !important;
+}
+
+.react-tel-input .country-list .search-box input {
+  background-color: #374151 !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #475569 !important;
+  border-radius: 4px !important;
+}
+
+/* Search icon styling */
+.react-tel-input .country-list .search-box .search-emoji {
+  background-color: #374151 !important;
+}
+
+.react-tel-input .country-list * {
+  background-color: inherit !important;
+}
+
+.phone-input-wrapper .react-tel-input:focus-within .flag-dropdown {
+  transform: translateY(-2px) !important;
+}
+
+/* Flag button selected state */
+.react-tel-input .flag-dropdown:hover {
+  background-color: transparent !important;
+}
+
+.react-tel-input .flag-dropdown.open {
+  background-color: transparent !important;
+}
+
+/* Remove any remaining white colors */
+.react-tel-input .selected-flag {
+  background-color: transparent !important;
+}
+
+.react-tel-input .arrow {
+  border-color: #e2e8f0 transparent transparent !important;
+}
+
+/* Country list items styling */
+.react-tel-input .country-list .country {
+  background-color: #374151 !important;
+  color: #e2e8f0 !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.1) !important;
+}
+
+.react-tel-input .country-list .country:hover {
+  background-color: #1a202c !important;
+  color: #ffffff !important;
+}
+
+.react-tel-input .country-list .country.highlight {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+}
