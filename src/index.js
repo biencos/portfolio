@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './style.css';
 
 const Home = lazy(() => import('./views/Home'));
-const NotFound = lazy(() => import('./views/NotFound'));
 const PrivacyPolicy = lazy(() => import('./views/PrivacyPolicy'));
 const TermsOfUse = lazy(() => import('./views/TermsOfUse'));
+const ThankYou = lazy(() => import('./views/ThankYou'));
+const NotFound = lazy(() => import('./views/NotFound'));
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route path='/terms-of-use' element={<TermsOfUse />} />
+          <Route path='/thank-you' element={<ThankYou />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Suspense>
