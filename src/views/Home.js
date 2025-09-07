@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import ServiceCard from '../components/ServiceCard';
 import ExperienceCard from '../components/ExperienceCard';
 import ClientFlags from '../components/ClientFlags';
+import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import './Home.css';
 
@@ -143,10 +144,7 @@ const Home = () => {
 
       {/* Contact Section */}
       <div id='contact' className='section-separator'></div>
-      <div className='section-placeholder'>
-        <h2>Contact</h2>
-        <p>Coming soon...</p>
-      </div>
+      <Contact />
 
       {/* Footer */}
       <Footer />
