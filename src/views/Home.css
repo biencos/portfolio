@@ -1,9 +1,16 @@
 .home-container {
   min-height: 100vh;
+  background: var(--bg-primary);
 }
 
 .section-separator {
-  height: 40px;
+  height: var(--section-padding-2xl);
+}
+
+@media (max-width: 768px) {
+  .section-separator {
+    height: var(--section-padding-lg);
+  }
 }
 
 /* Hero Section */
