@@ -1,3 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Core Colors */
+  --bg-primary: #1c1c1c;
+  --bg-secondary: #2c2c2c;
+  --text-primary: #ffffff;
+  --text-secondary: #bde0fe;
+
+  /* Accent Colors */
+  --accent-primary: #a2d2ff;
+  --accent-secondary: #cdb4db;
+  --accent-tertiary: #ffafcc;
+
+  /* Border & Shadow System */
+  --border-subtle: rgba(189, 224, 254, 0.1);
+  --shadow-primary: rgba(0, 18, 51, 0.3);
+  --shadow-accent: rgba(162, 210, 255, 0.2);
+
+  /* Typography */
+  --font-heading: 'Lexend', sans-serif;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 5.5rem;
+
+  /* Container padding system */
+  --container-padding-sm: 2.4rem;
+  --container-padding-md: 3.34rem;
+  --container-padding-lg: 4.5rem;
+
+  /* Section spacing */
+  --section-padding-sm: 2rem;
+  --section-padding-lg: 5rem;
+
+  /* Border radius */
+  --radius-sm: 0.5rem;
+  --radius-lg: 1.5rem;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,21 +51,43 @@
 
 body,
 html {
-  background: #000;
-  color: #fff;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  line-height: 1.6;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 20px;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Form elements inherit fonts */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-primary);
 }

@@ -1,8 +1,50 @@
 // Setup jest-dom for custom matchers
 import '@testing-library/jest-dom';
 
+// Mock IntersectionObserver for tests
+global.IntersectionObserver = class IntersectionObserver {
+  constructor(callback, options) {
+    this.callback = callback;
+    this.options = options;
+  }
+
+  observe() {
+    // Mock implementation - do nothing
+  }
+
+  unobserve() {
+    // Mock implementation - do nothing
+  }
+
+  disconnect() {
+    // Mock implementation - do nothing
+  }
+};
+
 // Mock environment variables for tests
 process.env.REACT_APP_RECAPTCHA_SITE_KEY = 'test-site-key';
+
+// Mock window.matchMedia for responsive design tests
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // Deprecated
+    removeListener: jest.fn(), // Deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
+// Mock ResizeObserver for responsive tests
+global.ResizeObserver = jest.fn().mockImplementation(() => ({
+  observe: jest.fn(),
+  unobserve: jest.fn(),
+  disconnect: jest.fn(),
+}));
 
 // Mock reCAPTCHA component
 jest.mock('react-google-recaptcha', () => {
