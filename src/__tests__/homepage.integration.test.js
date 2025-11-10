@@ -16,7 +16,7 @@ describe('Home Page Integration', () => {
 
     // Hero section integration
     expect(screen.getByText(/build something/i)).toBeInTheDocument();
-    expect(screen.getByText(/great today/i)).toBeInTheDocument();
+    expect(screen.getByText(/amazing today/i)).toBeInTheDocument();
   });
 
   it('has proper anchor navigation setup', () => {

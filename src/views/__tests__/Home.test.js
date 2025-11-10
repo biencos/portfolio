@@ -52,7 +52,16 @@ describe('Home View', () => {
     renderWithRouter(<Home />);
     // React Helmet doesn't work in test environment, so we check if the component renders
     expect(
-      screen.getByText(/as a software engineer, i help companies/i)
+      screen.getByText((content, node) => {
+        const hasText = node =>
+          node.textContent ===
+          'As a software engineer, I help companies around the world.';
+        const nodeHasText = hasText(node);
+        const childrenDontHaveText = Array.from(node?.children || []).every(
+          child => !hasText(child)
+        );
+        return nodeHasText && childrenDontHaveText;
+      })
     ).toBeInTheDocument();
   });
 
@@ -60,7 +69,7 @@ describe('Home View', () => {
     renderWithRouter(<Home />);
 
     expect(screen.getByText(/build something/i)).toBeInTheDocument();
-    expect(screen.getByText(/great today/i)).toBeInTheDocument();
+    expect(screen.getByText(/amazing today/i)).toBeInTheDocument();
   });
 
   it('displays hero description text', () => {
