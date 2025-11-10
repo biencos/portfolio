@@ -183,7 +183,7 @@ const ContactForm = ({
 
 For e.x.:
 Hi, I would like to create an e-commerce shop ...`}
-            rows='4'
+            rows='7'
             className={getFieldClass('projectIdea', formData.projectIdea)}
           />
           {shouldShowError('projectIdea') ? (
@@ -194,14 +194,14 @@ Hi, I would like to create an e-commerce shop ...`}
         </div>
 
         {/* Accept Privacy Policy and Terms of Use */}
-        <div className='form-field'>
+        <div className='form-field checkbox-field'>
           <label className='checkbox-label'>
             <input
               type='checkbox'
               name='privacyConsent'
               checked={formData.privacyConsent}
               onChange={onInputChange}
-              className='checkbox-input'
+              className={`checkbox-input ${errors.privacyConsent ? 'error' : ''}`}
             />
             <span className='checkbox-text'>
               I agree to the{' '}
@@ -270,13 +270,21 @@ ContactForm.propTypes = {
     projectIdea: PropTypes.string,
     privacyConsent: PropTypes.bool,
     recaptchaToken: PropTypes.string,
+  }).isRequired,
+  errors: PropTypes.shape({
+    email: PropTypes.string,
+    phone: PropTypes.string,
+    projectIdea: PropTypes.string,
+    privacyConsent: PropTypes.string,
+    recaptcha: PropTypes.string,
   }),
-  errors: PropTypes.object,
   isSubmitting: PropTypes.bool,
   submitMessage: PropTypes.string,
   isValid: PropTypes.bool,
   focusedField: PropTypes.string,
-  recaptchaRef: PropTypes.object,
+  recaptchaRef: PropTypes.shape({
+    current: PropTypes.object,
+  }),
   onInputChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func.isRequired,
   onFocus: PropTypes.func.isRequired,

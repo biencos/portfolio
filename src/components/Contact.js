@@ -1,8 +1,12 @@
+import { useEffect, useRef } from 'react';
 import ContactForm from './ContactForm';
 import useContactForm from '../hooks/useContactForm';
 import './Contact.css';
 
 const Contact = () => {
+  const contactHeaderRef = useRef(null);
+  const contactContentRef = useRef(null);
+
   const {
     formData,
     errors,
@@ -19,15 +23,40 @@ const Contact = () => {
     handleValidationClick,
   } = useContactForm();
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
+
+    const elementsToObserve = [
+      contactHeaderRef.current,
+      contactContentRef.current,
+    ].filter(Boolean);
+
+    elementsToObserve.forEach(element => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className='contact' id='contact'>
       <div className='container'>
-        <div className='contact-header'>
+        <div className='contact-header' ref={contactHeaderRef}>
           <h2 className='contact-heading'>Contact</h2>
           <p className='contact-text'>Let&apos;s Work Together</p>
         </div>
 
-        <div className='contact-content'>
+        <div className='contact-content' ref={contactContentRef}>
           <ContactForm
             formData={formData}
             errors={errors}

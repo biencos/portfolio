@@ -75,7 +75,7 @@ describe('Contact Component', () => {
     });
 
     const emailInput = screen.getByPlaceholderText(/your email address/i);
-    const phoneInput = screen.getByPlaceholderText(/enter phone number/i);
+    const phoneInput = screen.getByPlaceholderText(/your phone number/i);
     const projectInput = screen.getByPlaceholderText(/your project idea/i);
     const privacyCheckbox = screen.getByRole('checkbox', {
       name: /i agree to the/i,
@@ -141,7 +141,7 @@ describe('Contact Component', () => {
   it('validates phone number format', async () => {
     render(<ContactWithRouter />);
 
-    const phoneInput = screen.getByPlaceholderText(/enter phone number/i);
+    const phoneInput = screen.getByPlaceholderText(/your phone number/i);
 
     // Enter an invalid phone number
     fireEvent.change(phoneInput, { target: { value: '+1123' } });
@@ -169,7 +169,7 @@ describe('Contact Component', () => {
     render(<ContactWithRouter />);
 
     const emailInput = screen.getByPlaceholderText(/your email address/i);
-    const phoneInput = screen.getByPlaceholderText(/enter phone number/i);
+    const phoneInput = screen.getByPlaceholderText(/your phone number/i);
     const projectInput = screen.getByPlaceholderText(/your project idea/i);
     const privacyCheckbox = screen.getByRole('checkbox', {
       name: /i agree to the/i,
