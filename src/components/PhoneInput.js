@@ -1,31 +1,70 @@
 import PropTypes from 'prop-types';
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './PhoneInput.css';
 
 const CustomPhoneInput = ({
-  value,
+  value = '',
   onChange,
-  onBlur,
-  onFocus,
-  fieldClass = '',
+  onBlur = () => {},
+  onFocus = () => {},
+  fieldClass = 'default',
   name = 'phone',
 }) => {
   const phoneInputRef = useRef(null);
+  const [isFocused, setIsFocused] = useState(false);
 
-  // Helper function to get border color based on field class
-  const getBorderColor = () => {
+  // Helper function to get border color value only
+  const getBorderColorValue = () => {
+    if (isFocused) {
+      if (fieldClass === 'error') {
+        return '#ff6b6b';
+      }
+      if (fieldClass === 'typing') {
+        return '#1e3a8a';
+      }
+      return 'rgba(226, 232, 240, 0.2)';
+    }
+
     if (fieldClass === 'error') {
-      return '2px solid #ff6b6b';
+      return '#ff6b6b';
     }
     if (fieldClass === 'valid') {
-      return '2px solid #22c55e';
+      return '#22c55e';
     }
     if (fieldClass === 'typing') {
-      return '2px solid #1e3a8a';
+      return '#1e3a8a';
     }
-    return '2px solid rgba(226, 232, 240, 0.2)';
+    return 'rgba(189, 224, 254, 0.1)'; // --border-subtle
+  };
+
+  // Helper function to get border color with width (for input)
+  const getBorderColor = () => {
+    return `2px solid ${getBorderColorValue()}`;
+  };
+
+  // Helper function to get background color for focus states
+  const getBackgroundColor = () => {
+    return isFocused ? '#2d3748' : 'rgba(26, 26, 28, 0.8)';
+  };
+
+  // Helper function to get box shadow for focus states
+  const getBoxShadow = () => {
+    if (!isFocused) return 'none';
+
+    if (fieldClass === 'error') {
+      return '0 0 0 3px rgba(255, 107, 107, 0.3)';
+    }
+    if (fieldClass === 'typing') {
+      return '0 0 0 3px rgba(30, 58, 138, 0.3)';
+    }
+    return '0 0 0 3px rgba(160, 174, 192, 0.1)';
+  };
+
+  // Helper function to get transform for focus states
+  const getTransform = () => {
+    return isFocused ? 'translateY(-2px)' : 'translateY(0)';
   };
 
   const handlePhoneChange = useCallback(
@@ -44,6 +83,26 @@ const CustomPhoneInput = ({
       });
     },
     [onChange, name]
+  );
+
+  const handleFocus = useCallback(
+    (event, data) => {
+      setIsFocused(true);
+      if (onFocus) {
+        onFocus(event);
+      }
+    },
+    [onFocus]
+  );
+
+  const handleBlur = useCallback(
+    (event, data) => {
+      setIsFocused(false);
+      if (onBlur) {
+        onBlur(event);
+      }
+    },
+    [onBlur]
   );
 
   // Simple KISS solution: intercept input events that would affect country code
@@ -80,50 +139,58 @@ const CustomPhoneInput = ({
         country={'us'}
         value={value}
         onChange={handlePhoneChange}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        placeholder='Enter phone number'
+        onBlur={handleBlur}
+        onFocus={handleFocus}
+        placeholder='Your phone number'
         enableSearch={true}
         autoFormat={true}
         disableCountryCode={false}
         countryCodeEditable={false}
         jumpCursorToEnd={false}
-        containerStyle={{
-          width: '100%',
-        }}
         inputStyle={{
           width: '100%',
-          height: '48px',
+          minHeight: '44px',
+          height: '57px',
           border: getBorderColor(),
-          borderRadius: '8px',
+          borderRadius: '0.5rem',
           transition: 'all 0.3s ease',
           outline: 'none',
-          color: '#e2e8f0',
-          backgroundColor: '#1a202c',
+          color: '#ffffff',
+          backgroundColor: getBackgroundColor(),
           fontSize: '1rem',
-          fontFamily: 'inherit',
+          fontFamily: "'DM Sans', sans-serif",
+          boxShadow: getBoxShadow(),
+          transform: getTransform(),
         }}
         buttonStyle={{
-          width: '50px',
-          padding: '0 8px',
+          padding: '0 7px',
           backgroundColor: 'transparent',
           border: 'none',
-          color: '#e2e8f0',
           transition: 'all 0.3s ease',
+          transform: getTransform(),
         }}
         dropdownStyle={{
-          backgroundColor: '#1a202c',
-          border: '2px solid #374151',
-          color: '#e2e8f0',
+          backgroundColor: 'rgba(26, 26, 28, 0.95)',
+          border: '2px solid rgba(189, 224, 254, 0.1)',
+          borderRadius: '0.5rem',
+          color: '#ffffff',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+          zIndex: 1000,
+          maxWidth: '300px',
         }}
         searchStyle={{
-          backgroundColor: '#374151',
-          color: '#e2e8f0',
-          borderColor: '#1e3a8a',
-          borderWidth: '2px',
-          borderRadius: '5px',
+          backgroundColor: 'rgba(26, 26, 28, 0.8)',
+          color: '#ffffff',
+          border: '2px solid rgba(189, 224, 254, 0.1)',
+          borderRadius: '0.5rem',
+          fontSize: '0.9rem',
+          fontFamily: "'DM Sans', sans-serif",
           outline: 'none',
+          padding: '6px 8px',
+          margin: '8px',
+          maxWidth: '260px',
+          width: 'calc(100% - 16px)',
+          boxSizing: 'border-box',
         }}
         inputProps={{
           name: name,
@@ -140,7 +207,7 @@ CustomPhoneInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
-  fieldClass: PropTypes.string,
+  fieldClass: PropTypes.oneOf(['default', 'typing', 'valid', 'error']),
   name: PropTypes.string,
 };
 

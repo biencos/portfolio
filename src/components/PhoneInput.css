@@ -46,16 +46,11 @@
   transform: translateY(-2px) !important;
 }
 
-/* Flag button selected state */
+/* Flag button hover effects - minimal override */
 .react-tel-input .flag-dropdown:hover {
   background-color: transparent !important;
 }
 
-.react-tel-input .flag-dropdown.open {
-  background-color: transparent !important;
-}
-
-/* Remove any remaining white colors */
 .react-tel-input .selected-flag {
   background-color: transparent !important;
 }
@@ -63,20 +58,64 @@
 .react-tel-input .arrow {
   border-color: #e2e8f0 transparent transparent !important;
 }
+/* Dropdown width control - minimal override to avoid breaking flag sprites */
+
+.react-tel-input .country-list {
+  max-height: 200px !important;
+  overflow-y: auto !important;
+  background-color: rgba(15, 15, 17, 0.98) !important;
+}
+
+/* Search field width and styling */
+.react-tel-input .country-list .search-box {
+  width: calc(100% - 16px) !important;
+  margin: 8px !important;
+  padding: 0 !important;
+}
+
+.react-tel-input .country-list .search-box input {
+  width: 100% !important;
+  max-width: none !important;
+  background: rgba(26, 26, 28, 0.8) !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(189, 224, 254, 0.1) !important;
+  border-radius: 0.5rem !important;
+  padding: 8px 12px !important;
+  font-size: 1rem !important;
+  font-family: 'DM Sans', sans-serif !important;
+  box-sizing: border-box !important;
+}
+
+.react-tel-input .country-list .search-box input:focus {
+  background: rgba(26, 26, 28, 0.9) !important;
+  border-color: rgba(189, 224, 254, 0.3) !important;
+  outline: none !important;
+}
 
 /* Country list items styling */
 .react-tel-input .country-list .country {
-  background-color: #374151 !important;
-  color: #e2e8f0 !important;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.1) !important;
+  background-color: rgba(26, 26, 28, 0.95) !important;
+  color: #ffffff !important;
+  border-bottom: 1px solid rgba(189, 224, 254, 0.1) !important;
 }
 
 .react-tel-input .country-list .country:hover {
-  background-color: #1a202c !important;
+  background-color: rgba(189, 224, 254, 0.1) !important;
   color: #ffffff !important;
 }
 
 .react-tel-input .country-list .country.highlight {
-  background-color: #374151 !important;
+  background-color: rgba(189, 224, 254, 0.2) !important;
   color: #ffffff !important;
+}
+
+/* Ensure country names and codes have transparent backgrounds */
+.react-tel-input .country-list .country .country-name,
+.react-tel-input .country-list .country .dial-code {
+  background-color: transparent !important;
+}
+
+/* Fix any flag text elements */
+.react-tel-input .country-list .country .flag ~ * {
+  background-color: transparent !important;
 }
