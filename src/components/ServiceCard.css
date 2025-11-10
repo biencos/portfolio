@@ -1,65 +1,182 @@
 .service-card {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 26, 28, 0.9),
+    rgba(42, 42, 46, 0.8)
+  );
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: 0 8px 32px var(--shadow-primary);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  aspect-ratio: 1 / 1.2;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 2rem;
-  background: #111;
-  border-radius: 12px;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  max-width: 350px;
+  width: 100%;
+  max-height: 380px;
+  max-width: 420px;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .service-card {
+    padding: calc(var(--space-sm));
+    max-height: 330px;
+    max-width: 350px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .service-card {
+    padding: calc(var(--space-sm));
+    max-height: 350px;
+    max-width: 370px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .service-card {
+    padding: var(--space-sm);
+    max-height: 370px;
+    max-width: 390px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .service-card {
+    padding: var(--space-sm);
+    max-height: 410px;
+    max-width: 450px;
+  }
+}
+
+.top-offer-badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-tertiary)
+  );
+  color: var(--bg-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(255, 175, 204, 0.3);
+}
+
+@media (max-width: 480px) {
+  .top-offer-badge {
+    font-size: 0.65rem;
+  }
 }
 
 .service-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 40px var(--shadow-accent);
+}
+
+/* Special hover effect for top offer cards */
+.service-card:has(.top-offer-badge):hover {
+  box-shadow: 0 16px 40px rgba(255, 175, 204, 0.4);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .service-card {
+    transition: none;
+  }
+
+  .service-card:hover {
+    transform: none;
+  }
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  z-index: 3;
+  transition: background 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Change top element color on hover for top offer cards */
+.service-card:has(.top-offer-badge):hover::before {
+  background: linear-gradient(90deg, var(--accent-tertiary), #f5576c);
 }
 
 .service-icon-container {
-  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--space-md);
+  flex-shrink: 0;
 }
 
 .service-icon {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
+  width: 5.5rem;
+  height: 5.5rem;
+  opacity: 0.9;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
-.service-content {
-  flex: 1;
+@media (min-width: 1920px) {
+  .service-icon {
+    width: 6.5rem;
+    height: 6.5rem;
+  }
+}
+
+.service-card:hover .service-icon {
+  transform: scale(1.1);
 }
 
 .service-title {
-  font-size: 1.5rem;
+  font-size: calc(clamp(1.5rem, 2.5vw, 1.7rem));
   font-weight: 700;
-  margin-bottom: 1rem;
-  color: #fff;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-heading);
 }
 
 .service-description {
-  font-size: 1rem;
+  font-size: calc(clamp(0.98rem, 1.5vw, 1.12rem));
+  color: var(--text-secondary);
   line-height: 1.6;
-  color: #ccc;
+  white-space: pre-line;
 }
 
-@media (max-width: 768px) {
-  .service-card {
-    padding: 1.5rem;
-    max-width: 100%;
-  }
-
-  .service-icon {
-    width: 60px;
-    height: 60px;
-  }
-
-  .service-title {
-    font-size: 1.3rem;
-  }
-
+@media (min-width: 1400px) {
   .service-description {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 1920px) {
+  .service-description {
+    padding: 0 var(--space-md);
   }
 }

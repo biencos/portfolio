@@ -13,6 +13,18 @@ const Home = () => {
   const heroHeadingRef = useRef(null);
   const heroTextRef = useRef(null);
   const heroButtonRef = useRef(null);
+  const servicesHeaderRef = useRef(null);
+  const servicesCardsRef = useRef(null);
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,6 +46,8 @@ const Home = () => {
       heroHeadingRef.current,
       heroTextRef.current,
       heroButtonRef.current,
+      servicesHeaderRef.current,
+      servicesCardsRef.current,
     ].filter(Boolean);
 
     elementsToObserve.forEach(element => observer.observe(element));
@@ -46,22 +60,24 @@ const Home = () => {
       id: 1,
       title: 'Mobile Applications',
       description:
-        'Do you want to turn your requirements into beautiful mobile apps? Let me help!',
+        'Do you want to turn your requirements into beautiful mobile apps?\n\nLet me help!',
       icon: '/mobile-200h.png',
+      topOffer: true,
     },
     {
       id: 2,
       title: 'Cloud Migration',
       description:
-        'Do you want to use cloud architecture like AWS in your product? Let me help!',
+        'Do you want to use cloud architecture like AWS in your product?\n\nLet me help!',
       icon: '/cloud-200h.png',
     },
     {
       id: 3,
       title: 'Freelancing',
       description:
-        'Do you want someone extra to help out building of your product? Let me help!',
+        'Do you want someone extra to help out building of your product?\n\nLet me help!',
       icon: '/desk-200h.png',
+      topOffer: true,
     },
   ];
 
@@ -137,11 +153,11 @@ const Home = () => {
       {/* Services Section */}
       <div id='services' className='section-separator'></div>
       <div className='services-section'>
-        <div className='services-header'>
+        <div className='services-header' ref={servicesHeaderRef}>
           <h2 className='services-heading'>Services</h2>
           <p className='services-text'>What I can offer</p>
         </div>
-        <div className='services-cards'>
+        <div className='services-cards' ref={servicesCardsRef}>
           {services.map(service => (
             <ServiceCard
               key={service.id}
@@ -149,6 +165,8 @@ const Home = () => {
               alt={`${service.title} icon`}
               title={service.title}
               description={service.description}
+              topOffer={service.topOffer}
+              onClick={scrollToContact}
             />
           ))}
         </div>
