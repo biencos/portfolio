@@ -21,14 +21,21 @@ jest.mock('../../components/ExperienceCard', () => {
       <div data-testid='experience-card'>
         <h3>{experience.position}</h3>
         <p>{experience.company}</p>
+        <span>{experience.duration}</span>
+        <span>{experience.type}</span>
+        <p>{experience.description}</p>
       </div>
     );
   };
 
   MockExperienceCard.propTypes = {
     experience: require('prop-types').shape({
+      id: require('prop-types').number.isRequired,
       position: require('prop-types').string.isRequired,
       company: require('prop-types').string.isRequired,
+      duration: require('prop-types').string.isRequired,
+      type: require('prop-types').string.isRequired,
+      description: require('prop-types').string.isRequired,
     }).isRequired,
   };
 

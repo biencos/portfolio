@@ -7,8 +7,7 @@ const mockExperience = {
   company: 'Tech Solutions Inc.',
   duration: '2023 - Present',
   type: 'full-time',
-  description:
-    'Lead development of scalable web applications using React, Node.js, and AWS.',
+  description: 'Lead development of scalable web applications using AWS.',
 };
 
 describe('ExperienceCard', () => {

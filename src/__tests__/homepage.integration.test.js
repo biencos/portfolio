@@ -48,7 +48,7 @@ describe('Home Page Integration', () => {
 
     expect(screen.getByText('Professional Experience')).toBeInTheDocument();
     expect(
-      screen.getByText(/Key roles and achievements in my development career/)
+      screen.getByText(/My journey in software development/)
     ).toBeInTheDocument();
 
     // Check for experience items
