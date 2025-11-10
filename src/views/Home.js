@@ -172,6 +172,10 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Client Flags Section */}
+      <div className='section-separator'></div>
+      <ClientFlags />
+
       {/* Experience Section */}
       <div id='experience' className='section-separator'></div>
       <section className='experience-section'>
@@ -188,10 +192,6 @@ const Home = () => {
           ))}
         </div>
       </section>
-
-      {/* Client Flags Section */}
-      <div className='section-separator'></div>
-      <ClientFlags />
 
       {/* Contact Section */}
       <div id='contact' className='section-separator'></div>
