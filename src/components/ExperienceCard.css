@@ -1,28 +1,69 @@
 .experience-card {
   background: linear-gradient(
     135deg,
-    rgba(30, 35, 44, 0.9),
-    rgba(45, 52, 65, 0.8)
+    rgba(26, 26, 28, 0.9),
+    rgba(42, 42, 46, 0.8)
   );
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px var(--shadow-primary);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
   position: relative;
   overflow: hidden;
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  min-height: 300px;
+    transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  aspect-ratio: 1 / 1.3;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
+  padding: var(--space-lg);
+  max-width: 430px;
+}
+
+@media (max-width: 640px) {
+  .experience-card {
+    padding: calc(var(--space-sm));
+    max-width: 350px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .experience-card {
+    padding: calc(var(--space-sm));
+    max-width: 300px;
+  }
+}
+
+/* Ensure consistent height in tablet layout */
+@media (min-width: 769px) and (max-width: 1536px) {
+  .experience-card {
+    min-height: 420px;
+    aspect-ratio: unset;
+  }
 }
 
 .experience-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 16px 40px var(--shadow-accent);
+}
+
+/* Special hover effect for freelance experience card */
+.experience-card--freelance:hover {
+  box-shadow: 0 16px 40px rgba(255, 175, 204, 0.4);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .experience-card {
+    transition: none;
+  }
+
+  .experience-card:hover {
+    transform: none;
+  }
 }
 
 .experience-card::before {
@@ -32,58 +73,71 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
   z-index: 3;
 }
 
 .experience-card--full-time::before {
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
 }
 
 .experience-card--freelance::before {
-  background: linear-gradient(90deg, #f093fb, #f5576c);
+  background: linear-gradient(90deg, var(--accent-tertiary), #f5576c);
 }
 
 .experience-card-header {
-  margin-bottom: 20px;
+  margin-bottom: var(--space-sm);
   text-align: center;
 }
 
 .experience-position {
-  font-size: 1.5rem;
+  font-size: calc(clamp(1.37rem, 2.5vw, 1.66rem));
   font-weight: 700;
-  color: white;
-  margin-bottom: 8px;
-  line-height: 1.3;
-  text-align: center;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  font-family: var(--font-heading);
+}
+
+@media (max-width: 768px) {
+  .experience-position {
+    padding-top: var(--space-xs);
+  }
 }
 
 .experience-company {
-  font-size: 1.1rem;
-  color: #a0a0a0;
-  margin-bottom: 12px;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
   font-weight: 500;
   text-align: center;
 }
 
 .experience-duration {
-  font-size: 0.95rem;
-  color: #888;
-  margin-bottom: 16px;
+  font-size: clamp(1rem, 2vw, 1.22rem);
+  color: #888888;
+  margin-bottom: var(--space-sm);
   font-weight: 400;
   text-align: center;
 }
 
 .experience-type-container {
-  margin-bottom: 20px;
+  margin-bottom: var(--space-md);
   text-align: center;
 }
 
 .experience-type {
   display: inline-block;
-  padding: 6px 12px;
+  padding: var(--space-xs) var(--space-sm);
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -115,29 +169,15 @@
 }
 
 .experience-description {
-  font-size: 1rem;
-  color: #d0d0d0;
+  font-size: calc(clamp(0.98rem, 1.5vw, 1.12rem));
+  color: var(--text-secondary);
   line-height: 1.6;
-  margin: 0;
   text-align: center;
+  white-space: pre-line;
 }
 
-/* Responsive Design */
-@media (max-width: 480px) {
-  .experience-card {
-    padding: 24px;
-    min-height: 280px;
-  }
-
-  .experience-position {
-    font-size: 1.3rem;
-  }
-
-  .experience-company {
-    font-size: 1rem;
-  }
-
+@media (min-width: 1400px) {
   .experience-description {
-    font-size: 0.95rem;
+    font-size: 1.02rem;
   }
 }

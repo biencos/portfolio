@@ -15,6 +15,8 @@ const Home = () => {
   const heroButtonRef = useRef(null);
   const servicesHeaderRef = useRef(null);
   const servicesCardsRef = useRef(null);
+  const experienceHeaderRef = useRef(null);
+  const experienceCardsRef = useRef(null);
 
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
@@ -48,6 +50,8 @@ const Home = () => {
       heroButtonRef.current,
       servicesHeaderRef.current,
       servicesCardsRef.current,
+      experienceHeaderRef.current,
+      experienceCardsRef.current,
     ].filter(Boolean);
 
     elementsToObserve.forEach(element => observer.observe(element));
@@ -84,12 +88,12 @@ const Home = () => {
   const experiences = [
     {
       id: 1,
-      position: 'Senior Software Engineer',
-      company: 'Tech Solutions Inc.',
-      duration: '2023 - Present',
-      type: 'full-time',
+      position: 'Freelance Developer',
+      company: 'Independent',
+      duration: '2021 - Present',
+      type: 'freelance',
       description:
-        'Lead development of scalable web applications using React, Node.js, and AWS. Mentored junior developers and improved team productivity by 30%.',
+        'Building custom web applications and consulting for various clients.\n\nSpecialized in React, Node.js, and cloud solutions.\n\n...',
     },
     {
       id: 2,
@@ -98,16 +102,16 @@ const Home = () => {
       duration: '2021 - 2023',
       type: 'full-time',
       description:
-        'Built responsive web applications and RESTful APIs. Implemented CI/CD pipelines and reduced deployment time by 50%.',
+        'Built responsive web applications with beatiful UI and RESTful APIs.\n\nImplemented CI/CD pipelines and reduced deployment time by 50%.\n\n...',
     },
     {
       id: 3,
-      position: 'Freelance Developer',
-      company: 'Independent',
-      duration: '2021 - Present',
-      type: 'freelance',
+      position: 'Senior Software Engineer',
+      company: 'Tech Solutions Inc.',
+      duration: '2023 - Present',
+      type: 'full-time',
       description:
-        'Building custom web applications and consulting for various clients. Specialized in React, Node.js, and cloud solutions.',
+        'Lead development of scalable web applications using AWS.\n\nMentored junior developers and improved team productivity by 30%.\n\n...',
     },
   ];
 
@@ -179,14 +183,11 @@ const Home = () => {
       {/* Experience Section */}
       <div id='experience' className='section-separator'></div>
       <section className='experience-section'>
-        <div className='experience-header'>
+        <div className='experience-header' ref={experienceHeaderRef}>
           <h2 className='experience-heading'>Professional Experience</h2>
-          <p className='experience-text'>
-            Key roles and achievements in my development career
-          </p>
+          <p className='experience-text'>My journey in software development</p>
         </div>
-
-        <div className='experience-grid'>
+        <div className='experience-cards' ref={experienceCardsRef}>
           {experiences.map(experience => (
             <ExperienceCard key={experience.id} experience={experience} />
           ))}
