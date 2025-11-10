@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet';
+import { useEffect, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import ServiceCard from '../components/ServiceCard';
 import ExperienceCard from '../components/ExperienceCard';
@@ -8,6 +9,38 @@ import Footer from '../components/Footer';
 import './Home.css';
 
 const Home = () => {
+  const heroImageRef = useRef(null);
+  const heroHeadingRef = useRef(null);
+  const heroTextRef = useRef(null);
+  const heroButtonRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px',
+      }
+    );
+
+    const elementsToObserve = [
+      heroImageRef.current,
+      heroHeadingRef.current,
+      heroTextRef.current,
+      heroButtonRef.current,
+    ].filter(Boolean);
+
+    elementsToObserve.forEach(element => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
   const services = [
     {
       id: 1,
@@ -72,22 +105,21 @@ const Home = () => {
       {/* Home Section */}
       <div id='home' className='section-separator'></div>
       <Navbar />
-      <div className='section-separator'></div>
 
       {/* Hero Section */}
       <div className='home-hero'>
         <div className='hero-content'>
           <div className='hero-text-container'>
-            <h1 className='hero-heading'>
-              <span>Build something</span>
+            <h1 className='hero-heading' ref={heroHeadingRef}>
+              Build Something
               <br />
-              <span>great today</span>
+              Amazing Today
             </h1>
-            <p className='hero-text'>
-              As a software engineer, I help companies deliver the right message
-              to their customers.
+            <p className='hero-text' ref={heroTextRef}>
+              As a software engineer, I help{' '}
+              <span className='mobile-break'>companies around the world.</span>
             </p>
-            <div className='hero-cta-container'>
+            <div className='hero-cta-container' ref={heroButtonRef}>
               <a href='#contact' className='hero-cta-btn'>
                 <span>Contact me</span>
               </a>
@@ -97,6 +129,7 @@ const Home = () => {
             alt='Portfolio showcase on mobile device'
             src='/phone-1400w.png'
             className='hero-image'
+            ref={heroImageRef}
           />
         </div>
       </div>
