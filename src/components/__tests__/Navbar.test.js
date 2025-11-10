@@ -45,7 +45,7 @@ describe('Navbar Component', () => {
     render(<Navbar />);
 
     const logo = screen.getByRole('img', { name: /portfolio logo/i });
-    expect(logo).toHaveAttribute('src', '/logo_dark.svg');
+    expect(logo).toHaveAttribute('src', '/logo_light.svg');
     expect(logo).toHaveClass('navbar-logo');
   });
 

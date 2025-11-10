@@ -17,7 +17,7 @@ const Navbar = () => {
       <div className='navbar'>
         <img
           alt='Portfolio logo'
-          src='/logo_dark.svg'
+          src='/logo_light.svg'
           className='navbar-logo'
         />
 
