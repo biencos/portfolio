@@ -339,69 +339,99 @@
 }
 
 /* Services Section */
-.services-section {
-  padding: 5rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
 .services-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: var(--space-2xl);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.services-header.animate {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .services-heading {
-  font-size: 3rem;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
   font-weight: 900;
-  margin-bottom: 1rem;
-  color: #fff;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  margin-bottom: var(--space-xs);
+}
+
+@media (min-width: 1400px) {
+  .services-heading {
+    font-size: 4rem;
+  }
 }
 
 .services-text {
-  font-size: 1.2rem;
-  color: #ccc;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  color: var(--text-secondary);
+}
+
+@media (min-width: 1400px) {
+  .services-text {
+    font-size: 1.4rem;
+  }
 }
 
 .services-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
   justify-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--container-padding-md);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+}
+
+.services-cards.animate {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 768px) {
-  .services-section {
-    padding: 3rem 1rem;
-  }
-
-  .services-heading {
-    font-size: 2.5rem;
-  }
-
   .services-cards {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: var(--space-lg);
+    padding: 0 var(--space-lg);
   }
 }
 
-.section-placeholder {
-  padding: 4rem 2rem;
-  text-align: center;
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@media (min-width: 769px) and (max-width: 1399px) {
+  .services-cards {
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+  }
+
+  .services-cards > :nth-child(3):last-child {
+    grid-column: 1 / -1;
+    max-height: 350px;
+    width: calc(50% - var(--space-xl) / 2);
+    justify-self: center;
+  }
 }
 
-.section-placeholder h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+@media (min-width: 1400px) {
+  .services-cards {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1300px;
+    gap: var(--space-2xl);
+  }
 }
 
-.section-placeholder p {
-  font-size: 1.1rem;
-  color: #ccc;
+@media (min-width: 1920px) {
+  .services-cards {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1800px;
+    gap: var(--space-3xl);
+    padding: 0 var(--container-padding-lg);
+  }
 }
 
 /* Experience Section */
