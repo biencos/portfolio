@@ -199,6 +199,7 @@ const Home = () => {
       <Contact />
 
       {/* Footer */}
+      <div className='section-separator'></div>
       <Footer />
     </div>
   );

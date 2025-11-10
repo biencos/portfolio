@@ -11,9 +11,6 @@ const Footer = () => {
             alt='Portfolio logo'
             src='/logo_light.svg'
             className='footer-logo'
-            onError={e => {
-              e.target.src = '/logo_dark.svg';
-            }}
           />
         </div>
 
