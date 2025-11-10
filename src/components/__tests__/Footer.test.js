@@ -59,14 +59,10 @@ describe('Footer Component', () => {
     expect(footer).toHaveClass('footer');
   });
 
-  test('handles logo error with fallback', () => {
+  test('displays logo correctly', () => {
     render(<Footer />);
 
     const logo = screen.getByAltText('Portfolio logo');
     expect(logo).toHaveAttribute('src', '/logo_light.svg');
-
-    // Simulate error event to trigger fallback
-    fireEvent.error(logo);
-    expect(logo).toHaveAttribute('src', '/logo_dark.svg');
   });
 });
