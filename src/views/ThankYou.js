@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './ThankYou.css';
 
 const ThankYou = () => {
@@ -20,6 +21,7 @@ const ThankYou = () => {
             className='go-home-button'
             onClick={handleGoHome}
             aria-label='Return to home page'
+            type='button'
           >
             Go Home
           </button>
@@ -28,5 +30,7 @@ const ThankYou = () => {
     </div>
   );
 };
+
+ThankYou.propTypes = {};
 
 export default ThankYou;
