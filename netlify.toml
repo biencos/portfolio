@@ -5,8 +5,7 @@
   publish = "build"
 
 [build.environment]
-  NODE_VERSION = "18"
-  NODE_ENV = "production"
+  NODE_VERSION = "20"
   GENERATE_SOURCEMAP = "false"
   DISABLE_ESLINT_PLUGIN = "true"
 
