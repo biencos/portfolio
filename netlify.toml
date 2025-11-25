@@ -3,11 +3,13 @@
 [build]
   command = "npm run build"
   publish = "build"
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
   GENERATE_SOURCEMAP = "false"
   DISABLE_ESLINT_PLUGIN = "true"
+  SECRETS_SCAN_OMIT_KEYS = "REACT_APP_RESEND_API_KEY,REACT_APP_RECAPTCHA_SECRET_KEY,REACT_APP_CONTACT_EMAIL"
 
 # Deploy previews for pull requests
 [context.deploy-preview]
