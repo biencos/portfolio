@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import localeEN from '../locales/en.json';
 
 /**
  * Enhanced router rendering with better options
@@ -105,4 +106,20 @@ export const createMockComponent = (name, testId) => {
   };
 
   return MockComponent;
+};
+
+/**
+ * Get locale values for testing - import directly from en.json
+ * This ensures tests use the same values as the application
+ * @returns {Object} Locale object
+ */
+export const getLocale = () => localeEN;
+
+/**
+ * Get specific locale value by dot notation path
+ * @param {string} path - Path to locale value (e.g., 'contact.form.email')
+ * @returns {any} Locale value
+ */
+export const getLocaleValue = path => {
+  return path.split('.').reduce((obj, key) => obj?.[key], localeEN);
 };
