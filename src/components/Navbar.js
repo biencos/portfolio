@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import useTranslations from '../hooks/useTranslations';
 import './Navbar.css';
 
 const Navbar = () => {
+  const t = useTranslations();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -16,7 +18,7 @@ const Navbar = () => {
     <div data-role='Header' className='navbar-container'>
       <div className='navbar'>
         <img
-          alt='Portfolio logo'
+          alt={t.navbar.logoAlt}
           src='/logo_light.svg'
           className='navbar-logo'
         />
@@ -24,7 +26,7 @@ const Navbar = () => {
         <button
           className='hamburger'
           onClick={toggleMenu}
-          aria-label='Toggle navigation menu'
+          aria-label={t.navbar.ariaLabel}
           aria-expanded={isMenuOpen}
         >
           <svg
@@ -46,16 +48,16 @@ const Navbar = () => {
 
         <div className={`navbar-links ${isMenuOpen ? 'open' : ''}`}>
           <a href='#home' className='navbar-link' onClick={closeMenu}>
-            Home
+            {t.navbar.links.home}
           </a>
           <a href='#services' className='navbar-link' onClick={closeMenu}>
-            Services
+            {t.navbar.links.services}
           </a>
           <a href='#experience' className='navbar-link' onClick={closeMenu}>
-            Experience
+            {t.navbar.links.experience}
           </a>
           <a href='#contact' className='navbar-link' onClick={closeMenu}>
-            Contact
+            {t.navbar.links.contact}
           </a>
         </div>
       </div>

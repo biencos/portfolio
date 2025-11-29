@@ -1,50 +1,55 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Navbar from '../Navbar';
+import { getLocale } from '../../utils/testUtils';
+
+const locale = getLocale();
 
 describe('Navbar Component', () => {
   it('renders without crashing', () => {
     render(<Navbar />);
     expect(
-      screen.getByRole('img', { name: /portfolio logo/i })
+      screen.getByRole('img', { name: locale.navbar.logoAlt })
     ).toBeInTheDocument();
   });
 
   it('displays all navigation links', () => {
     render(<Navbar />);
 
-    expect(screen.getByRole('link', { name: /home/i })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /services/i })).toBeInTheDocument();
     expect(
-      screen.getByRole('link', { name: /experience/i })
+      screen.getByRole('link', { name: locale.navbar.links.home })
     ).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /contact/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: locale.navbar.links.services })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: locale.navbar.links.experience })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: locale.navbar.links.contact })
+    ).toBeInTheDocument();
   });
 
   it('has correct href attributes for navigation links', () => {
     render(<Navbar />);
 
-    expect(screen.getByRole('link', { name: /home/i })).toHaveAttribute(
-      'href',
-      '#home'
-    );
-    expect(screen.getByRole('link', { name: /services/i })).toHaveAttribute(
-      'href',
-      '#services'
-    );
-    expect(screen.getByRole('link', { name: /experience/i })).toHaveAttribute(
-      'href',
-      '#experience'
-    );
-    expect(screen.getByRole('link', { name: /contact/i })).toHaveAttribute(
-      'href',
-      '#contact'
-    );
+    expect(
+      screen.getByRole('link', { name: locale.navbar.links.home })
+    ).toHaveAttribute('href', '#home');
+    expect(
+      screen.getByRole('link', { name: locale.navbar.links.services })
+    ).toHaveAttribute('href', '#services');
+    expect(
+      screen.getByRole('link', { name: locale.navbar.links.experience })
+    ).toHaveAttribute('href', '#experience');
+    expect(
+      screen.getByRole('link', { name: locale.navbar.links.contact })
+    ).toHaveAttribute('href', '#contact');
   });
 
   it('renders logo with correct attributes', () => {
     render(<Navbar />);
 
-    const logo = screen.getByRole('img', { name: /portfolio logo/i });
+    const logo = screen.getByRole('img', { name: locale.navbar.logoAlt });
     expect(logo).toHaveAttribute('src', '/logo_light.svg');
     expect(logo).toHaveClass('navbar-logo');
   });
