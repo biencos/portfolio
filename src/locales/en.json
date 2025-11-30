@@ -90,5 +90,39 @@
         "description": "Lead development of scalable web applications using AWS.\n\nMentored junior developers and improved team productivity by 30%."
       }
     ]
+  },
+  "contact": {
+    "sectionTitle": "Contact",
+    "sectionSubtitle": "Let's Work Together",
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "Your email address",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Your phone number",
+      "projectIdea": "Project Description",
+      "projectIdeaPlaceholder": "Tell me more about your project\n\nFor e.x.:\nHi, I would like to create an e-commerce shop ...",
+      "privacyConsent": "I agree to the ",
+      "privacyConsentPrivacy": "Privacy Policy",
+      "privacyConsentAnd": " and ",
+      "privacyConsentTerms": "Terms of Use",
+      "privacyConsentAriaLabel": "I agree to the Privacy Policy and Terms of Use",
+      "sending": "Sending...",
+      "submit": "Submit",
+      "validation": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please provide a valid email",
+        "phoneRequired": "Phone number is required",
+        "phoneInvalid": "Please provide a valid phone number",
+        "projectRequired": "Project description is required",
+        "projectTooShort": "Please provide more details (minimum 12 characters)",
+        "privacyRequired": "Privacy consent is required",
+        "recaptchaRequired": "Please verify you are human"
+      },
+      "messages": {
+        "successSubmit": "Thank you! Your message has been sent successfully.",
+        "errorSubmit": "Sorry, there was an error sending your message."
+      },
+      "recaptchaLabel": "Verify you are human"
+    }
   }
 }

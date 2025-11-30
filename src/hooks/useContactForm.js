@@ -2,6 +2,7 @@ import { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import useTranslations from './useTranslations';
 import { validateContactForm, isFormValid } from '../utils/formValidation';
 
 const INITIAL_FORM_DATA = {
@@ -43,6 +44,7 @@ const resetFormState = (setFormData, setErrors, recaptchaRef) => {
 const useContactForm = () => {
   const navigate = useNavigate();
   const recaptchaRef = useRef();
+  const locale = useTranslations();
 
   const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
@@ -76,17 +78,17 @@ const useContactForm = () => {
       if (type === 'checkbox' && !checked && name === 'privacyConsent') {
         setErrors(prev => ({
           ...prev,
-          [name]: 'Privacy consent is required',
+          [name]: locale.contact.form.validation.privacyRequired,
         }));
       }
     },
-    [errors]
+    [errors, locale]
   );
 
   const handleInputBlur = useCallback(
     e => {
       const { name } = e.target;
-      const formErrors = validateContactForm(formData);
+      const formErrors = validateContactForm(formData, locale);
 
       if (formErrors[name]) {
         setErrors(prev => ({
@@ -97,7 +99,7 @@ const useContactForm = () => {
 
       setFocusedField(null);
     },
-    [formData]
+    [formData, locale]
   );
 
   const handleInputFocus = useCallback(e => {
@@ -123,9 +125,9 @@ const useContactForm = () => {
   );
 
   const handleValidationClick = useCallback(() => {
-    const formErrors = validateContactForm(formData);
+    const formErrors = validateContactForm(formData, locale);
     setErrors(formErrors);
-  }, [formData]);
+  }, [formData, locale]);
 
   const handleSubmit = useCallback(
     async e => {
@@ -133,7 +135,7 @@ const useContactForm = () => {
       setIsSubmitting(true);
       setSubmitMessage('');
 
-      const formErrors = validateContactForm(formData);
+      const formErrors = validateContactForm(formData, locale);
       setErrors(formErrors);
 
       if (!isFormValid(formErrors)) {
@@ -163,9 +165,7 @@ const useContactForm = () => {
             console.log('EmailJS not configured. Form data:', templateParams);
           }
           if (process.env.NODE_ENV === 'test') {
-            setSubmitMessage(
-              'Thank you! Your message has been sent successfully.'
-            );
+            setSubmitMessage(locale.contact.form.messages.successSubmit);
             resetFormState(setFormData, setErrors, recaptchaRef);
             return;
           }
@@ -183,26 +183,22 @@ const useContactForm = () => {
         if (process.env.NODE_ENV !== 'test') {
           navigate('/thank-you');
         } else {
-          setSubmitMessage(
-            'Thank you! Your message has been sent successfully.'
-          );
+          setSubmitMessage(locale.contact.form.messages.successSubmit);
         }
       } catch (error) {
         if (process.env.NODE_ENV === 'development') {
           // eslint-disable-next-line no-console
           console.error('Email send failed:', error);
         }
-        setSubmitMessage(
-          'Sorry, there was an error sending your message. Please try again.'
-        );
+        setSubmitMessage(locale.contact.form.messages.errorSubmit);
       } finally {
         setIsSubmitting(false);
       }
     },
-    [formData, navigate, recaptchaRef]
+    [formData, locale, navigate, recaptchaRef]
   );
 
-  const currentErrors = validateContactForm(formData);
+  const currentErrors = validateContactForm(formData, locale);
   const isValid = isFormValid(currentErrors);
 
   return {

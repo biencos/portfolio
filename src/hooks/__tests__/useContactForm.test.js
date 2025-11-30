@@ -2,6 +2,9 @@ import { renderHook, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import useContactForm from '../useContactForm';
 import emailjs from '@emailjs/browser';
+import { getLocale } from '../../utils/testUtils';
+
+const locale = getLocale();
 
 // Mock EmailJS
 jest.mock('@emailjs/browser', () => ({
@@ -96,7 +99,7 @@ describe('useContactForm Hook', () => {
     });
 
     expect(result.current.errors.privacyConsent).toBe(
-      'Privacy consent is required'
+      locale.contact.form.validation.privacyRequired
     );
   });
 
@@ -359,7 +362,7 @@ describe('useContactForm Hook', () => {
       expect.any(Error)
     );
     expect(result.current.submitMessage).toBe(
-      'Sorry, there was an error sending your message. Please try again.'
+      locale.contact.form.messages.errorSubmit
     );
 
     consoleErrorSpy.mockRestore();

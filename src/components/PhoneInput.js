@@ -3,6 +3,7 @@ import { useRef, useCallback, useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import './PhoneInput.css';
+import useTranslations from '../hooks/useTranslations';
 
 const CustomPhoneInput = ({
   value = '',
@@ -11,9 +12,14 @@ const CustomPhoneInput = ({
   onFocus = () => {},
   fieldClass = 'default',
   name = 'phone',
+  placeholder,
 }) => {
+  const t = useTranslations();
   const phoneInputRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
+
+  // Use locale placeholder if not provided
+  const displayPlaceholder = placeholder || t.contact.form.phonePlaceholder;
 
   // Helper function to get border color value only
   const getBorderColorValue = () => {
@@ -141,7 +147,7 @@ const CustomPhoneInput = ({
         onChange={handlePhoneChange}
         onBlur={handleBlur}
         onFocus={handleFocus}
-        placeholder='Your phone number'
+        placeholder={displayPlaceholder}
         enableSearch={true}
         autoFormat={true}
         disableCountryCode={false}
@@ -209,6 +215,7 @@ CustomPhoneInput.propTypes = {
   onFocus: PropTypes.func,
   fieldClass: PropTypes.oneOf(['default', 'typing', 'valid', 'error']),
   name: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 export default CustomPhoneInput;
