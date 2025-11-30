@@ -6,9 +6,11 @@ import ExperienceCard from '../components/ExperienceCard';
 import ClientFlags from '../components/ClientFlags';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import useTranslations from '../hooks/useTranslations';
 import './Home.css';
 
 const Home = () => {
+  const t = useTranslations();
   const heroImageRef = useRef(null);
   const heroHeadingRef = useRef(null);
   const heroTextRef = useRef(null);
@@ -118,8 +120,8 @@ const Home = () => {
   return (
     <div className='home-container'>
       <Helmet>
-        <title>Portfolio</title>
-        <meta property='og:title' content='Portfolio' />
+        <title>{t.site.title}</title>
+        <meta property='og:title' content={t.site.title} />
       </Helmet>
 
       {/* Home Section */}

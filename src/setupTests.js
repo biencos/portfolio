@@ -23,6 +23,9 @@ global.IntersectionObserver = class IntersectionObserver {
 
 // Mock environment variables for tests
 process.env.REACT_APP_RECAPTCHA_SITE_KEY = 'test-site-key';
+process.env.REACT_APP_EMAILJS_SERVICE_ID = 'test-service-id';
+process.env.REACT_APP_EMAILJS_TEMPLATE_ID = 'test-template-id';
+process.env.REACT_APP_EMAILJS_PUBLIC_KEY = 'test-public-key';
 
 // Mock window.matchMedia for responsive design tests
 Object.defineProperty(window, 'matchMedia', {
@@ -74,3 +77,8 @@ jest.mock('react-google-recaptcha', () => {
   MockReCAPTCHA.displayName = 'ReCAPTCHA';
   return MockReCAPTCHA;
 });
+
+// Mock EmailJS library
+jest.mock('@emailjs/browser', () => ({
+  send: jest.fn().mockResolvedValue({ status: 200 }),
+}));
