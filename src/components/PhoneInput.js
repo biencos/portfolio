@@ -86,7 +86,7 @@ const CustomPhoneInput = ({
   );
 
   const handleFocus = useCallback(
-    (event, data) => {
+    event => {
       setIsFocused(true);
       if (onFocus) {
         onFocus(event);
@@ -96,7 +96,7 @@ const CustomPhoneInput = ({
   );
 
   const handleBlur = useCallback(
-    (event, data) => {
+    event => {
       setIsFocused(false);
       if (onBlur) {
         onBlur(event);
