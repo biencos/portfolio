@@ -8,7 +8,7 @@ describe('Home Page Integration', () => {
     renderWithRouter(<Home />);
 
     // Navbar and Footer integration
-    const logos = screen.getAllByRole('img', { name: /portfolio logo/i });
+    const logos = screen.getAllByRole('img', { name: 'Portfolio logo' });
     expect(logos).toHaveLength(2); // One in navbar, one in footer
     expect(logos[0]).toHaveClass('navbar-logo');
     expect(logos[1]).toHaveClass('footer-logo');
