@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import useTranslations from '../hooks/useTranslations';
 import './ServiceCard.css';
 
 const ServiceCard = ({
@@ -8,29 +9,35 @@ const ServiceCard = ({
   alt,
   topOffer = false,
   onClick = () => {},
-}) => (
-  <div
-    className='service-card'
-    onClick={onClick}
-    role='button'
-    tabIndex={0}
-    onKeyDown={e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        onClick();
-      }
-    }}
-  >
-    {topOffer && <div className='top-offer-badge'>Top Offer</div>}
-    <div className='service-icon-container'>
-      <img alt={alt} src={icon} className='service-icon' />
+}) => {
+  const t = useTranslations();
+  return (
+    <div
+      className='service-card'
+      onClick={onClick}
+      role='button'
+      tabIndex={0}
+      aria-label={`${title} service${topOffer ? ' - Top Offer' : ''}`}
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick();
+        }
+      }}
+    >
+      {topOffer && (
+        <div className='top-offer-badge'>{t.services.topOfferBadge}</div>
+      )}
+      <div className='service-icon-container'>
+        <img alt={alt} src={icon} className='service-icon' />
+      </div>
+      <div className='service-content'>
+        <h3 className='service-title'>{title}</h3>
+        <p className='service-description'>{description}</p>
+      </div>
     </div>
-    <div className='service-content'>
-      <h3 className='service-title'>{title}</h3>
-      <p className='service-description'>{description}</p>
-    </div>
-  </div>
-);
+  );
+};
 
 ServiceCard.propTypes = {
   icon: PropTypes.string.isRequired,

@@ -1,14 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import ServiceCard from '../ServiceCard';
+import { getLocale } from '../../utils/testUtils';
 
-// Test data factory (DRY principle)
-const createTestProps = (overrides = {}) => ({
-  icon: '/test-icon.svg',
-  title: 'Test Service',
-  description: 'Test service description',
-  alt: 'Test service icon',
-  ...overrides,
-});
+const locale = getLocale();
+
+// Test data factory - use locale values when available
+const createTestProps = (overrides = {}) => {
+  const defaultService = locale.services?.items?.[0] || {};
+  return {
+    icon: defaultService.icon || '/test-icon.svg',
+    title: defaultService.title || defaultService.name || 'Test Service',
+    description: defaultService.description || 'Test service description',
+    alt: 'Test service icon',
+    ...overrides,
+  };
+};
 
 describe('ServiceCard Component', () => {
   it('renders without crashing', () => {
@@ -19,20 +25,22 @@ describe('ServiceCard Component', () => {
   });
 
   it('displays all required props correctly', () => {
+    const firstService = locale.services?.items?.[0] || {};
     const props = createTestProps({
-      title: 'Web Development',
-      description: 'Building modern web applications',
-      alt: 'Web development icon',
+      title: firstService.title || firstService.name,
+      description: firstService.description,
+      alt: 'Test service icon',
     });
 
     render(<ServiceCard {...props} />);
 
-    expect(screen.getByText('Web Development')).toBeInTheDocument();
+    expect(screen.getByText(props.title)).toBeInTheDocument();
+    // Use regex for descriptions with newlines
     expect(
-      screen.getByText('Building modern web applications')
+      screen.getByText(new RegExp(props.description.substring(0, 40)))
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('img', { name: /web development icon/i })
+      screen.getByRole('img', { name: /test service icon/i })
     ).toBeInTheDocument();
   });
 

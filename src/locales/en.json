@@ -17,5 +17,27 @@
     "text": "As a software engineer, I help companies around the world.",
     "cta": "Contact me",
     "imageAlt": "Phone mockup with portfolio logo"
+  },
+  "services": {
+    "sectionTitle": "Services",
+    "sectionSubtitle": "What I can offer",
+    "topOfferBadge": "Top Offer",
+    "items": [
+      {
+        "title": "Mobile Applications",
+        "description": "Do you want to turn your requirements into beautiful mobile apps?\n\nLet me help!",
+        "imageAlt": "Mobile Applications icon"
+      },
+      {
+        "title": "Cloud Migration",
+        "description": "Do you want to use cloud architecture like AWS in your product?\n\nLet me help!",
+        "imageAlt": "Cloud Migration icon"
+      },
+      {
+        "title": "Freelancing",
+        "description": "Do you want someone extra to help out building of your product?\n\nLet me help!",
+        "imageAlt": "Freelancing icon"
+      }
+    ]
   }
 }
