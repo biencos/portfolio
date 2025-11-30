@@ -11,5 +11,11 @@
       "experience": "Experience",
       "contact": "Contact"
     }
+  },
+  "hero": {
+    "heading": "Build Something\nAmazing Today",
+    "text": "As a software engineer, I help companies around the world.",
+    "cta": "Contact me",
+    "imageAlt": "Phone mockup with portfolio logo"
   }
 }

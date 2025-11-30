@@ -133,22 +133,19 @@ const Home = () => {
         <div className='hero-content'>
           <div className='hero-text-container'>
             <h1 className='hero-heading' ref={heroHeadingRef}>
-              Build Something
-              <br />
-              Amazing Today
+              {t.hero.heading}
             </h1>
             <p className='hero-text' ref={heroTextRef}>
-              As a software engineer, I help{' '}
-              <span className='mobile-break'>companies around the world.</span>
+              {t.hero.text}
             </p>
             <div className='hero-cta-container' ref={heroButtonRef}>
               <a href='#contact' className='hero-cta-btn'>
-                <span>Contact me</span>
+                <span>{t.hero.cta}</span>
               </a>
             </div>
           </div>
           <img
-            alt='Portfolio showcase on mobile device'
+            alt={t.hero.imageAlt}
             src='/phone-1400w.png'
             className='hero-image'
             ref={heroImageRef}
