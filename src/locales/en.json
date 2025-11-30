@@ -1,5 +1,15 @@
 {
   "site": {
     "title": "Portfolio"
+  },
+  "navbar": {
+    "ariaLabel": "Toggle navigation menu",
+    "logoAlt": "Portfolio logo",
+    "links": {
+      "home": "Home",
+      "services": "Services",
+      "experience": "Experience",
+      "contact": "Contact"
+    }
   }
 }
