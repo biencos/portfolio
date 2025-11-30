@@ -25,6 +25,7 @@
 **Build:** Create React App, CRACO  
 **Quality:** ESLint, Prettier, Husky, GitHub Actions  
 **Testing:** React Testing Library, Jest  
+**Localization:** Centralized JSON-based i18n system
 **Deployment:** Netlify 
 
 
@@ -99,15 +100,21 @@ make clean          # Clean build artifacts
 
 ```
 src/
-├── components/       # Reusable UI components
-│   └── __tests__/    # Component unit tests
-├── views/            # Page components  
-│   └── __tests__/    # View integration tests
-├── utils/            # Shared utilities
-│   └── testUtils.js  # Test helper functions
-├── __tests__/        # Integration tests
-├── style.css         # Global styles
-└── index.js          # App entry point
+├── components/            # Reusable UI components
+│   └── __tests__/         # Component unit tests
+├── views/                 # Page components  
+│   └── __tests__/         # View integration tests
+├── hooks/                 # Custom React hooks
+│   └── useTranslations.js # i18n hook for accessing locale data
+├── locales/               # Translation files
+│   └── en.json            # English strings organized by section
+├── utils/                 # Shared utilities
+│   ├── testUtils.js       # Test helper functions
+│   └── formValidation.js  # Form validation logic
+├── __tests__/             # Integration tests
+├── style.css              # Global styles
+├── setupTests.js          # Jest configuration
+└── index.js               # App entry point
 ```
 
 
@@ -150,6 +157,60 @@ make test-ci            # CI mode
 - **Single Responsibility** - One test per behavior
 - **DRY** - Shared utilities eliminate duplication
 - **Clean Code** - Descriptive test names, minimal setup
+
+
+## 🌍 Localization (i18n)
+
+This project implements a scalable, hook-based internationalization (i18n) system for managing all user-facing content strings.
+
+**How It Works:**
+```javascript
+import { useTranslations } from '../hooks/useTranslations';
+
+export function MyComponent() {
+  const t = useTranslations();
+  return <h1>{t.navbar.links.home}</h1>;
+}
+```
+
+**File Organization:**
+```
+src/
+├── locales/
+│   └── en.json              # English strings organized by section
+├── hooks/
+│   └── useTranslations.js   # Hook providing access to locale data
+└── utils/
+    └── testUtils.js         # Test helpers with getLocale() function
+```
+
+**Locale Structure:**
+```
+en.json
+├── site                  # Site-wide strings
+├── navbar                # Navigation bar
+├── hero                  # Hero section
+├── services              # Services section
+├── clientFlags           # Client flags section
+├── experience            # Experience/employment section
+├── contact               # Contact form & section
+├── footer                # Footer
+├── thankYou              # Thank you page
+└── notFound              # 404 page
+├── privacyPolicy         # Privacy Policy page
+└── termsOfUse            # Terms of Use page
+```
+
+**Future Expansion:**
+To add a new language, simply create `src/locales/fr.json` with the same structure. Components automatically access the correct locale without changes.
+
+**Testing with Locales:**
+```javascript
+import { getLocale } from '../utils/testUtils';
+
+const locale = getLocale();
+expect(screen.getByText(locale.navbar.links.home)).toBeInTheDocument();
+```
 
 
 ## 🚀 Deployment
