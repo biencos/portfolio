@@ -138,5 +138,11 @@
       "termsOfUse": "Terms of Use",
       "github": "GitHub Profile"
     }
+  },
+  "thankYou": {
+    "title": "Thank You!",
+    "message": "You will be contacted via your email within 24 hours",
+    "button": "Go Home",
+    "buttonAriaLabel": "Return to home page"
   }
 }
