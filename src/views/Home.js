@@ -61,31 +61,15 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  const services = [
-    {
-      id: 1,
-      title: 'Mobile Applications',
-      description:
-        'Do you want to turn your requirements into beautiful mobile apps?\n\nLet me help!',
-      icon: '/mobile-200h.png',
-      topOffer: true,
-    },
-    {
-      id: 2,
-      title: 'Cloud Migration',
-      description:
-        'Do you want to use cloud architecture like AWS in your product?\n\nLet me help!',
-      icon: '/cloud-200h.png',
-    },
-    {
-      id: 3,
-      title: 'Freelancing',
-      description:
-        'Do you want someone extra to help out building of your product?\n\nLet me help!',
-      icon: '/desk-200h.png',
-      topOffer: true,
-    },
-  ];
+  const services = t.services.items.map((service, index) => {
+    return {
+      id: index + 1,
+      ...service,
+      icon: ['/mobile-200h.png', '/cloud-200h.png', '/desk-200h.png'][index],
+      topOffer: index === 0 || index === 2,
+      altText: service.imageAlt,
+    };
+  });
 
   const experiences = [
     {
@@ -157,15 +141,15 @@ const Home = () => {
       <div id='services' className='section-separator'></div>
       <div className='services-section'>
         <div className='services-header' ref={servicesHeaderRef}>
-          <h2 className='services-heading'>Services</h2>
-          <p className='services-text'>What I can offer</p>
+          <h2 className='services-heading'>{t.services.sectionTitle}</h2>
+          <p className='services-text'>{t.services.sectionSubtitle}</p>
         </div>
         <div className='services-cards' ref={servicesCardsRef}>
           {services.map(service => (
             <ServiceCard
               key={service.id}
               icon={service.icon}
-              alt={`${service.title} icon`}
+              alt={service.altText}
               title={service.title}
               description={service.description}
               topOffer={service.topOffer}
