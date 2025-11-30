@@ -12,6 +12,12 @@ describe('Home Page Integration', () => {
     expect(logos).toHaveLength(2); // One in navbar, one in footer
     expect(logos[0]).toHaveClass('navbar-logo');
     expect(logos[1]).toHaveClass('footer-logo');
+
+    // Hero image
+    expect(
+      screen.getByRole('img', { name: /phone mockup/i })
+    ).toBeInTheDocument();
+
     expect(screen.getByRole('link', { name: /home/i })).toBeInTheDocument();
 
     // Hero section integration
