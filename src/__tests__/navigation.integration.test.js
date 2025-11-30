@@ -2,7 +2,9 @@ import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
 import Home from '../views/Home';
 import NotFound from '../views/NotFound';
-import { renderWithRouter } from '../utils/testUtils';
+import { renderWithRouter, getLocale } from '../utils/testUtils';
+
+const locale = getLocale();
 
 // Test App routing behavior
 const TestApp = () => (
@@ -27,7 +29,7 @@ describe('Navigation Integration', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText(/page not found/i)).toBeInTheDocument();
+      expect(screen.getByText(locale.notFound.description)).toBeInTheDocument();
     });
   });
 
@@ -37,7 +39,7 @@ describe('Navigation Integration', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText(/page not found/i)).toBeInTheDocument();
+      expect(screen.getByText(locale.notFound.description)).toBeInTheDocument();
     });
 
     const homeButton = screen.getByRole('button', { name: /go to home page/i });

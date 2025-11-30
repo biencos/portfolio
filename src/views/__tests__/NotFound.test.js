@@ -1,37 +1,44 @@
 import { screen, fireEvent } from '@testing-library/react';
 import NotFound from '../NotFound';
-import { renderWithRouter } from '../../utils/testUtils';
+import { renderWithRouter, getLocale } from '../../utils/testUtils';
+
+const locale = getLocale();
 
 describe('NotFound View', () => {
   it('renders without crashing', () => {
     renderWithRouter(<NotFound />);
-    expect(screen.getByText(/404/i)).toBeInTheDocument();
+    expect(screen.getByText(locale.notFound.description)).toBeInTheDocument();
   });
 
-  it('includes meta tags for SEO', () => {
+  it('displays correct page heading', () => {
     renderWithRouter(<NotFound />);
-    // React Helmet doesn't work in test environment, so we check if the component renders
-    expect(screen.getByText('OOPS! PAGE NOT FOUND')).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.notFound.pageNotFoundHeading)
+    ).toBeInTheDocument();
   });
 
   it('displays 404 error message', () => {
     renderWithRouter(<NotFound />);
 
-    expect(screen.getByText(/page not found/i)).toBeInTheDocument();
-    expect(screen.getByText(/404/i)).toBeInTheDocument();
+    expect(screen.getByText(locale.notFound.description)).toBeInTheDocument();
+    expect(screen.getByText('404')).toBeInTheDocument();
   });
 
   it('provides navigation back to home', () => {
     renderWithRouter(<NotFound />);
 
-    const homeButton = screen.getByRole('button', { name: /go to home page/i });
+    const homeButton = screen.getByRole('button', {
+      name: locale.notFound.ariaLabel,
+    });
     expect(homeButton).toBeInTheDocument();
   });
 
   it('has a clickable home button', () => {
     renderWithRouter(<NotFound />);
 
-    const homeButton = screen.getByRole('button', { name: /go to home page/i });
+    const homeButton = screen.getByRole('button', {
+      name: locale.notFound.ariaLabel,
+    });
     fireEvent.click(homeButton);
 
     // Just verify the button is clickable without navigation since we can't test navigation in isolation

@@ -144,5 +144,12 @@
     "message": "You will be contacted via your email within 24 hours",
     "button": "Go Home",
     "buttonAriaLabel": "Return to home page"
+  },
+  "notFound": {
+    "pageNotFoundHeading": "OOPS! PAGE NOT FOUND",
+    "title": "404 - Page Not Found",
+    "description": "THE PAGE YOU REQUESTED WAS NOT FOUND",
+    "button": "Go Home",
+    "ariaLabel": "Go to home page"
   }
 }
