@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react';
 import ContactForm from './ContactForm';
 import useContactForm from '../hooks/useContactForm';
+import useTranslations from '../hooks/useTranslations';
 import './Contact.css';
 
 const Contact = () => {
+  const t = useTranslations();
   const contactHeaderRef = useRef(null);
   const contactContentRef = useRef(null);
 
@@ -52,8 +54,8 @@ const Contact = () => {
     <section className='contact' id='contact'>
       <div className='container'>
         <div className='contact-header' ref={contactHeaderRef}>
-          <h2 className='contact-heading'>Contact</h2>
-          <p className='contact-text'>Let&apos;s Work Together</p>
+          <h2 className='contact-heading'>{t.contact.sectionTitle}</h2>
+          <p className='contact-text'>{t.contact.sectionSubtitle}</p>
         </div>
 
         <div className='contact-content' ref={contactContentRef}>
