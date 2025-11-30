@@ -1,12 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import ExperienceCard from '../ExperienceCard';
+import { getLocale } from '../../utils/testUtils';
 
-const mockExperience = {
+const locale = getLocale();
+
+// Use first experience from locale if available, otherwise use mock
+const mockExperience = locale.experience?.items?.[0] || {
   id: 1,
   position: 'Senior Software Engineer',
   company: 'Tech Solutions Inc.',
   duration: '2023 - Present',
-  type: 'full-time',
+  type: 'Full-time',
   description: 'Lead development of scalable web applications using AWS.',
 };
 
@@ -14,19 +18,19 @@ describe('ExperienceCard', () => {
   it('renders experience card with all details', () => {
     render(<ExperienceCard experience={mockExperience} />);
 
-    expect(screen.getByText('Senior Software Engineer')).toBeInTheDocument();
-    expect(screen.getByText('Tech Solutions Inc.')).toBeInTheDocument();
-    expect(screen.getByText('2023 - Present')).toBeInTheDocument();
-    expect(screen.getByText('Full-time')).toBeInTheDocument();
+    expect(screen.getByText(mockExperience.position)).toBeInTheDocument();
+    expect(screen.getByText(mockExperience.company)).toBeInTheDocument();
+    expect(screen.getByText(mockExperience.duration)).toBeInTheDocument();
+    expect(screen.getByText(mockExperience.type)).toBeInTheDocument();
     expect(
-      screen.getByText(/Lead development of scalable web applications/)
+      screen.getByText(new RegExp(mockExperience.description.substring(0, 20)))
     ).toBeInTheDocument();
   });
 
   it('renders freelance type correctly', () => {
     const freelanceExperience = {
       ...mockExperience,
-      type: 'freelance',
+      type: 'Freelance',
     };
 
     render(<ExperienceCard experience={freelanceExperience} />);
@@ -40,7 +44,11 @@ describe('ExperienceCard', () => {
     );
 
     const card = container.querySelector('.experience-card');
-    expect(card).toHaveClass('experience-card--full-time');
-    expect(card).toHaveAttribute('data-position', 'Senior Software Engineer');
+    const expectedClass =
+      mockExperience.type === 'Full-time'
+        ? 'experience-card--full-time'
+        : 'experience-card--freelance';
+    expect(card).toHaveClass(expectedClass);
+    expect(card).toHaveAttribute('data-position', mockExperience.position);
   });
 });

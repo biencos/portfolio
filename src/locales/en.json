@@ -60,5 +60,35 @@
       "southKorea": "South Korea flag",
       "norway": "Norway flag"
     }
+  },
+  "experience": {
+    "sectionTitle": "Professional Experience",
+    "sectionSubtitle": "My journey in software development",
+    "items": [
+      {
+        "id": 1,
+        "position": "Freelance Developer",
+        "company": "Independent",
+        "duration": "2021 - Present",
+        "type": "Freelance",
+        "description": "Building custom web applications and consulting for various clients.\n\nSpecialized in React, Node.js, and cloud solutions."
+      },
+      {
+        "id": 2,
+        "position": "Full Stack Developer",
+        "company": "Digital Innovations",
+        "duration": "2021 - 2023",
+        "type": "Full-time",
+        "description": "Built responsive web applications with beautiful UI and RESTful APIs.\n\nImplemented CI/CD pipelines and reduced deployment time by 50%."
+      },
+      {
+        "id": 3,
+        "position": "Senior Software Engineer",
+        "company": "Tech Solutions Inc.",
+        "duration": "2023 - Present",
+        "type": "Full-time",
+        "description": "Lead development of scalable web applications using AWS.\n\nMentored junior developers and improved team productivity by 30%."
+      }
+    ]
   }
 }

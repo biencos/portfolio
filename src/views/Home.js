@@ -71,35 +71,7 @@ const Home = () => {
     };
   });
 
-  const experiences = [
-    {
-      id: 1,
-      position: 'Freelance Developer',
-      company: 'Independent',
-      duration: '2021 - Present',
-      type: 'freelance',
-      description:
-        'Building custom web applications and consulting for various clients.\n\nSpecialized in React, Node.js, and cloud solutions.\n\n...',
-    },
-    {
-      id: 2,
-      position: 'Full Stack Developer',
-      company: 'Digital Innovations',
-      duration: '2021 - 2023',
-      type: 'full-time',
-      description:
-        'Built responsive web applications with beatiful UI and RESTful APIs.\n\nImplemented CI/CD pipelines and reduced deployment time by 50%.\n\n...',
-    },
-    {
-      id: 3,
-      position: 'Senior Software Engineer',
-      company: 'Tech Solutions Inc.',
-      duration: '2023 - Present',
-      type: 'full-time',
-      description:
-        'Lead development of scalable web applications using AWS.\n\nMentored junior developers and improved team productivity by 30%.\n\n...',
-    },
-  ];
+  const experiences = t.experience.items;
 
   return (
     <div className='home-container'>
@@ -167,8 +139,8 @@ const Home = () => {
       <div id='experience' className='section-separator'></div>
       <section className='experience-section'>
         <div className='experience-header' ref={experienceHeaderRef}>
-          <h2 className='experience-heading'>Professional Experience</h2>
-          <p className='experience-text'>My journey in software development</p>
+          <h2 className='experience-heading'>{t.experience.sectionTitle}</h2>
+          <p className='experience-text'>{t.experience.sectionSubtitle}</p>
         </div>
         <div className='experience-cards' ref={experienceCardsRef}>
           {experiences.map(experience => (

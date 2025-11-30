@@ -2,10 +2,16 @@ import PropTypes from 'prop-types';
 import './ExperienceCard.css';
 
 const ExperienceCard = ({ experience }) => {
+  // Convert employment type to CSS class name (e.g., "Freelance" → "freelance")
+  const getTypeClassName = type => {
+    return type.toLowerCase().replace(/\s+/g, '-');
+  };
+
   return (
     <div
-      className={`experience-card experience-card--${experience.type}`}
+      className={`experience-card experience-card--${getTypeClassName(experience.type)}`}
       data-position={experience.position}
+      aria-label={`${experience.position} at ${experience.company}, ${experience.type}, ${experience.duration}`}
     >
       <div className='experience-card-header'>
         <h3 className='experience-position'>{experience.position}</h3>
@@ -13,9 +19,9 @@ const ExperienceCard = ({ experience }) => {
         <div className='experience-duration'>{experience.duration}</div>
         <div className='experience-type-container'>
           <span
-            className={`experience-type experience-type--${experience.type}`}
+            className={`experience-type experience-type--${getTypeClassName(experience.type)}`}
           >
-            {experience.type === 'freelance' ? 'Freelance' : 'Full-time'}
+            {experience.type}
           </span>
         </div>
       </div>
