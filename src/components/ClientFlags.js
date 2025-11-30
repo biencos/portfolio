@@ -1,12 +1,39 @@
+import useTranslations from '../hooks/useTranslations';
 import './ClientFlags.css';
 
 const ClientFlags = () => {
+  const t = useTranslations();
   const clientCountries = [
-    { code: 'US', name: 'United States', flag: '/usa.svg' },
-    { code: 'GB', name: 'United Kingdom', flag: '/uk.svg' },
-    { code: 'PL', name: 'Poland', flag: '/poland.svg' },
-    { code: 'KR', name: 'South Korea', flag: '/south korea.svg' },
-    { code: 'NO', name: 'Norway', flag: '/norway.svg' },
+    {
+      code: 'US',
+      flag: '/usa.svg',
+      name: t.clientFlags.countryNames.unitedStates,
+      altText: t.clientFlags.countryFlags.unitedStates,
+    },
+    {
+      code: 'GB',
+      flag: '/uk.svg',
+      name: t.clientFlags.countryNames.unitedKingdom,
+      altText: t.clientFlags.countryFlags.unitedKingdom,
+    },
+    {
+      code: 'PL',
+      flag: '/poland.svg',
+      name: t.clientFlags.countryNames.poland,
+      altText: t.clientFlags.countryFlags.poland,
+    },
+    {
+      code: 'KR',
+      flag: '/south korea.svg',
+      name: t.clientFlags.countryNames.southKorea,
+      altText: t.clientFlags.countryFlags.southKorea,
+    },
+    {
+      code: 'NO',
+      flag: '/norway.svg',
+      name: t.clientFlags.countryNames.norway,
+      altText: t.clientFlags.countryFlags.norway,
+    },
   ];
 
   // Triple the flags for infinite scroll
@@ -20,9 +47,14 @@ const ClientFlags = () => {
     <section className='client-flags-section'>
       <div className='client-flags-container'>
         <div className='client-flags-header'>
-          <h2 className='client-flags-main-heading'>Clients</h2>
+          <h2
+            className='client-flags-main-heading'
+            aria-label={t.clientFlags.ariaLabels.countryListHeading}
+          >
+            {t.clientFlags.sectionTitle}
+          </h2>
           <p className='client-flags-heading'>
-            Business partners from all over the world
+            {t.clientFlags.sectionSubtitle}
           </p>
         </div>
         <div className='client-flags-scroll-container'>
@@ -34,7 +66,7 @@ const ClientFlags = () => {
               >
                 <img
                   src={country.flag}
-                  alt={`${country.name} flag`}
+                  alt={country.altText}
                   className='client-flag-image'
                 />
                 <span className='client-flag-name'>{country.name}</span>

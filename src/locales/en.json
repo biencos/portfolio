@@ -39,5 +39,26 @@
         "imageAlt": "Freelancing icon"
       }
     ]
+  },
+  "clientFlags": {
+    "sectionTitle": "Clients",
+    "sectionSubtitle": "Business partners from all over the world",
+    "ariaLabels": {
+      "countryListHeading": "Our business partners worldwide"
+    },
+    "countryNames": {
+      "unitedStates": "United States",
+      "unitedKingdom": "United Kingdom",
+      "poland": "Poland",
+      "southKorea": "South Korea",
+      "norway": "Norway"
+    },
+    "countryFlags": {
+      "unitedStates": "United States flag",
+      "unitedKingdom": "United Kingdom flag",
+      "poland": "Poland flag",
+      "southKorea": "South Korea flag",
+      "norway": "Norway flag"
+    }
   }
 }
