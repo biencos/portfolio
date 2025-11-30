@@ -1,8 +1,10 @@
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
+import useTranslations from '../hooks/useTranslations';
 
 const NotFound = () => {
   const navigate = useNavigate();
+  const t = useTranslations();
 
   return (
     <div
@@ -16,13 +18,11 @@ const NotFound = () => {
       }}
     >
       <Helmet>
-        <title>404 - Not Found</title>
+        <title>{t.notFound.title}</title>
       </Helmet>
-      <h3>OOPS! PAGE NOT FOUND</h3>
+      <h3>{t.notFound.pageNotFoundHeading}</h3>
       <h1 style={{ fontSize: '4rem', margin: '1rem 0' }}>404</h1>
-      <h2 style={{ marginBottom: '2rem' }}>
-        WE ARE SORRY, BUT THE PAGE YOU REQUESTED WAS NOT FOUND
-      </h2>
+      <h2 style={{ marginBottom: '2rem' }}>{t.notFound.description}</h2>
       <button
         style={{
           padding: '1rem 2rem',
@@ -33,9 +33,9 @@ const NotFound = () => {
           cursor: 'pointer',
         }}
         onClick={() => navigate('/')}
-        aria-label='Go to home page'
+        aria-label={t.notFound.ariaLabel}
       >
-        Go Home
+        {t.notFound.button}
       </button>
     </div>
   );
