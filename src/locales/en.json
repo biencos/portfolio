@@ -124,5 +124,19 @@
       },
       "recaptchaLabel": "Verify you are human"
     }
+  },
+  "footer": {
+    "logoAlt": "Portfolio logo",
+    "links": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use",
+      "github": "GitHub"
+    },
+    "copyright": "© Copyrighted by biencos, {year}",
+    "ariaLabels": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use",
+      "github": "GitHub Profile"
+    }
   }
 }

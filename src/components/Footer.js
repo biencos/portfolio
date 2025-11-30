@@ -1,6 +1,8 @@
+import useTranslations from '../hooks/useTranslations';
 import './Footer.css';
 
 const Footer = () => {
+  const t = useTranslations();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -8,7 +10,7 @@ const Footer = () => {
       <div className='footer-content'>
         <div className='footer-logo-section'>
           <img
-            alt='Portfolio logo'
+            alt={t.footer.logoAlt}
             src='/logo_light.svg'
             className='footer-logo'
           />
@@ -18,30 +20,30 @@ const Footer = () => {
           <a
             href='/privacy-policy'
             className='footer-link'
-            aria-label='Privacy Policy'
+            aria-label={t.footer.ariaLabels.privacyPolicy}
           >
-            Privacy Policy
+            {t.footer.links.privacyPolicy}
           </a>
           <a
             href='/terms-of-use'
             className='footer-link'
-            aria-label='Terms of Use'
+            aria-label={t.footer.ariaLabels.termsOfUse}
           >
-            Terms of Use
+            {t.footer.links.termsOfUse}
           </a>
           <a
             href='https://github.com/biencos'
             className='footer-link'
             target='_blank'
             rel='noopener noreferrer'
-            aria-label='GitHub Profile'
+            aria-label={t.footer.ariaLabels.github}
           >
-            GitHub
+            {t.footer.links.github}
           </a>
         </div>
 
         <div className='footer-copyright'>
-          <p>&copy; Copyrighted by biencos, {currentYear}</p>
+          <p>{t.footer.copyright.replace('{year}', currentYear.toString())}</p>
         </div>
       </div>
     </footer>
