@@ -1,6 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import ThankYou from '../ThankYou';
+import { getLocale } from '../../utils/testUtils';
+
+const locale = getLocale();
 
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
@@ -22,27 +25,25 @@ describe('ThankYou Component', () => {
   test('renders thank you message', () => {
     render(<ThankYouWithRouter />);
 
-    expect(screen.getByText('Thank You!')).toBeInTheDocument();
-    expect(
-      screen.getByText(/we will respond to your request within 24 hours/i)
-    ).toBeInTheDocument();
+    expect(screen.getByText(locale.thankYou.title)).toBeInTheDocument();
+    expect(screen.getByText(locale.thankYou.message)).toBeInTheDocument();
   });
 
   test('renders go home button', () => {
     render(<ThankYouWithRouter />);
 
     const goHomeButton = screen.getByRole('button', {
-      name: /return to home page/i,
+      name: locale.thankYou.buttonAriaLabel,
     });
     expect(goHomeButton).toBeInTheDocument();
-    expect(goHomeButton).toHaveTextContent('Go Home');
+    expect(goHomeButton).toHaveTextContent(locale.thankYou.button);
   });
 
   test('navigates to home when go home button is clicked', () => {
     render(<ThankYouWithRouter />);
 
     const goHomeButton = screen.getByRole('button', {
-      name: /return to home page/i,
+      name: locale.thankYou.buttonAriaLabel,
     });
     fireEvent.click(goHomeButton);
 

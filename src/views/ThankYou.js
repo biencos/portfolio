@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import useTranslations from '../hooks/useTranslations';
 import './ThankYou.css';
 
 const ThankYou = () => {
   const navigate = useNavigate();
+  const t = useTranslations();
 
   const handleGoHome = () => {
     navigate('/');
@@ -12,17 +14,15 @@ const ThankYou = () => {
     <div className='thank-you-page'>
       <div className='thank-you-container'>
         <div className='thank-you-content'>
-          <h1 className='thank-you-title'>Thank You!</h1>
-          <p className='thank-you-message'>
-            We will respond to your request within 24 hours
-          </p>
+          <h1 className='thank-you-title'>{t.thankYou.title}</h1>
+          <p className='thank-you-message'>{t.thankYou.message}</p>
           <button
             className='go-home-button'
             onClick={handleGoHome}
-            aria-label='Return to home page'
+            aria-label={t.thankYou.buttonAriaLabel}
             type='button'
           >
-            Go Home
+            {t.thankYou.button}
           </button>
         </div>
       </div>
