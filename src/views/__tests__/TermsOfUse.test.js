@@ -1,23 +1,30 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import TermsOfUse from '../TermsOfUse';
+import { renderWithRouter } from '../../utils/testUtils';
+
+// Mock the useTranslations hook
+jest.mock(
+  '../../hooks/useTranslations',
+  () => () => require('../../locales/en.json')
+);
 
 describe('TermsOfUse Component', () => {
   test('renders terms of use heading', () => {
-    render(<TermsOfUse />);
+    renderWithRouter(<TermsOfUse />);
     expect(
       screen.getByRole('heading', { level: 1, name: /terms of use/i })
     ).toBeInTheDocument();
   });
 
   test('renders effective date', () => {
-    render(<TermsOfUse />);
+    renderWithRouter(<TermsOfUse />);
     expect(
-      screen.getByText(/effective date: August 20, 2025/i)
+      screen.getByText(/effective date: august 20, 2025/i)
     ).toBeInTheDocument();
   });
 
   test('renders key sections', () => {
-    render(<TermsOfUse />);
+    renderWithRouter(<TermsOfUse />);
     expect(
       screen.getByRole('heading', { name: /use of website/i })
     ).toBeInTheDocument();
@@ -33,14 +40,14 @@ describe('TermsOfUse Component', () => {
   });
 
   test('includes welcome message', () => {
-    render(<TermsOfUse />);
+    renderWithRouter(<TermsOfUse />);
     expect(
-      screen.getByText(/welcome to our portfolio website/i)
+      screen.getByText(/welcome to my portfolio website/i)
     ).toBeInTheDocument();
   });
 
   test('mentions contact form in user submissions', () => {
-    render(<TermsOfUse />);
+    renderWithRouter(<TermsOfUse />);
     expect(
       screen.getByText(
         /by submitting information through our website or communication channels/i

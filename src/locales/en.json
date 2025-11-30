@@ -238,5 +238,61 @@
         "email": "biencos.dev@gmail.com"
       }
     }
+  },
+  "termsOfUse": {
+    "title": "Terms of Use",
+    "metaDescription": "Terms of Use for my portfolio website and services.",
+    "effectiveDate": "Effective Date: August 20, 2025",
+    "intro": "Welcome to my portfolio website. By accessing and using this website, you agree to comply with and be bound by the following terms:",
+    "sections": {
+      "useOfWebsite": {
+        "heading": "Use of Website",
+        "items": [
+          "The content on this website, including text, images, and code, is owned by us and is protected by intellectual property laws",
+          "You may use the website for your personal, non-commercial purposes only",
+          "You agree not to use this website for any unlawful purpose or in any way that may damage or impair its functionality"
+        ]
+      },
+      "userSubmissions": {
+        "heading": "User Submissions",
+        "items": [
+          "By submitting information through our website or communication channels, you warrant that the information provided is accurate and truthful",
+          "You consent to the processing of this information as outlined in our Privacy Policy",
+          "You acknowledge that communications through the website are not guaranteed to be secure"
+        ]
+      },
+      "intellectualProperty": {
+        "heading": "Intellectual Property",
+        "items": [
+          "All intellectual property rights related to this website's content remain with us or the respective owners",
+          "You may not reproduce, distribute, or create derivative works based on the website content without explicit permission"
+        ]
+      },
+      "disclaimers": {
+        "heading": "Disclaimers",
+        "items": [
+          "This website is provided \"as is\" without any warranties, express or implied",
+          "We do not guarantee the accuracy, completeness, or timeliness of the content",
+          "We are not liable for any damages arising from the use or inability to use this website"
+        ]
+      },
+      "limitationOfLiability": {
+        "heading": "Limitation of Liability",
+        "content": "To the maximum extent permitted by law, we shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your use of this website."
+      },
+      "governingLaw": {
+        "heading": "Governing Law",
+        "content": "These terms are governed by and construed in accordance with applicable international laws and regulations, without regard to conflict of law principles."
+      },
+      "changes": {
+        "heading": "Changes to Terms",
+        "content": "We reserve the right to modify these Terms of Use at any time. Changes will be posted on this page with the updated effective date."
+      },
+      "contact": {
+        "heading": "Contact Us",
+        "text": "For any questions about these Terms of Use, please contact us by email:",
+        "email": "biencos.dev@gmail.com"
+      }
+    }
   }
 }
