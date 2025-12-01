@@ -1,6 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import emailjs from '@emailjs/browser';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import useTranslations from './useTranslations';
 import { validateContactForm, isFormValid } from '../utils/formValidation';
@@ -15,6 +14,9 @@ const INITIAL_FORM_DATA = {
 
 const PHONE_MIN_LENGTH = 8;
 
+/**
+ * Format phone number for email display
+ */
 const formatPhoneForEmail = phone => {
   try {
     const phoneNumber = parsePhoneNumberFromString(phone);
@@ -26,15 +28,71 @@ const formatPhoneForEmail = phone => {
   }
 };
 
-const getEmailJSConfig = () => ({
-  serviceId: process.env.REACT_APP_EMAILJS_SERVICE_ID,
-  templateId: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-  publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY,
-});
+/**
+ * Send email via Netlify Function (backend)
+ * All sensitive credentials are handled server-side
+ */
+const sendEmailViaFunction = async formData => {
+  const response = await fetch('/.netlify/functions/send-email', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email: formData.email,
+      phone: formatPhoneForEmail(formData.phone),
+      projectIdea: formData.projectIdea,
+      recaptchaToken: formData.recaptchaToken,
+    }),
+  });
 
-const isEmailJSConfigured = config =>
-  config.serviceId && config.templateId && config.publicKey;
+  if (!response.ok) {
+    let errorData;
+    try {
+      errorData = await response.json();
+    } catch {
+      errorData = { error: `HTTP ${response.status}: ${response.statusText}` };
+    }
+    if (process.env.NODE_ENV === 'development') {
+      // eslint-disable-next-line no-console
+      console.error('Function error response:', errorData);
+    }
+    throw new Error(
+      errorData.error || errorData.details || 'Failed to send email'
+    );
+  }
 
+  return response.json();
+};
+
+/**
+ * Check if running in demo/mock mode
+ * Returns true when running in demo (no emails sent):
+ * - REACT_APP_MOCK_MODE=true explicitly set
+ * - Missing REACT_APP_RESEND_API_KEY
+ * - In test environment (NODE_ENV=test)
+ */
+const isInDemoMode = () => {
+  // Explicit mock mode: always demo, ignore everything else
+  if (process.env.REACT_APP_MOCK_MODE === 'true') {
+    return true;
+  }
+
+  // Test environment always uses demo mode
+  if (process.env.NODE_ENV === 'test') {
+    return true;
+  }
+
+  // If no Resend API key, use demo mode
+  if (!process.env.REACT_APP_RESEND_API_KEY) {
+    return true;
+  }
+
+  // Otherwise, real mode (have API key configured)
+  return false;
+};
+
+/**
+ * Reset form to initial state
+ */
 const resetFormState = (setFormData, setErrors, recaptchaRef) => {
   setFormData(INITIAL_FORM_DATA);
   setErrors({});
@@ -144,47 +202,27 @@ const useContactForm = () => {
       }
 
       try {
-        const formattedPhone = formatPhoneForEmail(formData.phone);
-        const templateParams = {
-          from_email: formData.email,
-          phone_number: formattedPhone,
-          project_idea: formData.projectIdea,
-          submission_time: new Date().toLocaleString(),
-        };
-
-        const emailConfig = getEmailJSConfig();
-
-        if (!isEmailJSConfigured(emailConfig)) {
+        // In demo/development mode, simulate email sending
+        if (isInDemoMode()) {
           await new Promise(resolve => setTimeout(resolve, 1500));
 
-          if (
-            process.env.NODE_ENV === 'development' ||
-            process.env.NODE_ENV === 'test'
-          ) {
+          if (process.env.NODE_ENV === 'development') {
             // eslint-disable-next-line no-console
-            console.log('EmailJS not configured. Form data:', templateParams);
+            console.log('Demo mode: Form data would be sent:', formData);
           }
-          if (process.env.NODE_ENV === 'test') {
-            setSubmitMessage(locale.contact.form.messages.successSubmit);
-            resetFormState(setFormData, setErrors, recaptchaRef);
-            return;
-          }
-        } else {
-          await emailjs.send(
-            emailConfig.serviceId,
-            emailConfig.templateId,
-            templateParams,
-            emailConfig.publicKey
+
+          setSubmitMessage(
+            'Thank you! Your message has been received. (Demo mode - email not sent)'
           );
+          resetFormState(setFormData, setErrors, recaptchaRef);
+          return;
         }
+
+        // Production: Send via Netlify Function
+        await sendEmailViaFunction(formData);
 
         resetFormState(setFormData, setErrors, recaptchaRef);
-
-        if (process.env.NODE_ENV !== 'test') {
-          navigate('/thank-you');
-        } else {
-          setSubmitMessage(locale.contact.form.messages.successSubmit);
-        }
+        navigate('/thank-you');
       } catch (error) {
         if (process.env.NODE_ENV === 'development') {
           // eslint-disable-next-line no-console

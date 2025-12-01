@@ -59,7 +59,7 @@ const ContactForm = ({
       return 'valid';
     }
 
-    return '';
+    return 'default';
   };
 
   const getRequiredClass = (fieldName, fieldValue) => {
@@ -233,17 +233,28 @@ const ContactForm = ({
           role='region'
           aria-label={t.recaptchaLabel}
         >
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-            onChange={onRecaptchaChange}
-            theme='dark'
-            hl={process.env.REACT_APP_LOCALE || 'en'}
-          />
-          {errors.recaptchaToken ? (
-            <span className='error-message'>{errors.recaptchaToken}</span>
+          {process.env.REACT_APP_RECAPTCHA_SITE_KEY ? (
+            <div className='form-field recaptcha-field'>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                onChange={onRecaptchaChange}
+                theme='dark'
+                hl={process.env.REACT_APP_LOCALE || 'en'}
+              />
+              {errors.recaptchaToken ? (
+                <span className='error-message'>{errors.recaptchaToken}</span>
+              ) : (
+                <div className='error-placeholder'></div>
+              )}
+            </div>
           ) : (
-            <div className='error-placeholder'></div>
+            <div className='form-field recaptcha-field'>
+              <p className='demo-notice'>
+                reCAPTCHA verification is not configured in demo mode.
+              </p>
+              <div className='error-placeholder'></div>
+            </div>
           )}
         </div>
 

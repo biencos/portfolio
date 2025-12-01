@@ -119,8 +119,12 @@ export const validateContactForm = (formData, locale) => {
   if (privacyError) errors.privacyConsent = privacyError;
 
   const messages = getValidationMessages(locale);
-  // reCAPTCHA validation
-  if (!formData.recaptchaToken) {
+
+  // reCAPTCHA validation (require in production or when configured)
+  const isProduction = process.env.NODE_ENV === 'production';
+  const hasRecaptchaKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+
+  if ((isProduction || hasRecaptchaKey) && !formData.recaptchaToken) {
     errors.recaptchaToken = messages.recaptchaRequired;
   }
 

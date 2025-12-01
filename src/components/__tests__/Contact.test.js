@@ -226,11 +226,11 @@ describe('Contact Component', () => {
     // Submit form
     fireEvent.click(submitButton);
 
-    // In test environment, check for success message instead of navigation
+    // In test environment, check for success message (demo mode)
     await waitFor(
       () => {
         expect(
-          screen.getByText(locale.contact.form.messages.successSubmit)
+          screen.getByText(/Thank you! Your message has been received/)
         ).toBeInTheDocument();
       },
       { timeout: 3000 }
