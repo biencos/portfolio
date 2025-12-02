@@ -7,101 +7,140 @@ import {
   isFormValid,
 } from '../formValidation';
 
+// Mock locale for testing
+const mockLocale = {
+  contact: {
+    form: {
+      validation: {
+        emailRequired: 'Email is required',
+        emailInvalid: 'Please provide a valid email',
+        phoneRequired: 'Phone number is required',
+        phoneInvalid: 'Please provide a valid phone number',
+        projectRequired: 'Project description is required',
+        projectTooShort: 'Please provide more details (minimum 12 characters)',
+        privacyRequired: 'Privacy consent is required',
+        recaptchaRequired: 'Verification is required',
+      },
+    },
+  },
+};
+
 describe('Form Validation Utils', () => {
   describe('validateEmail', () => {
     test('validates required email', () => {
-      expect(validateEmail('')).toBe('Email is required');
-      expect(validateEmail(null)).toBe('Email is required');
-      expect(validateEmail(undefined)).toBe('Email is required');
+      expect(validateEmail('', mockLocale)).toBe('Email is required');
+      expect(validateEmail(null, mockLocale)).toBe('Email is required');
+      expect(validateEmail(undefined, mockLocale)).toBe('Email is required');
     });
 
     test('validates invalid email formats', () => {
-      expect(validateEmail('invalid')).toBe('Please provide a valid email');
-      expect(validateEmail('invalid@')).toBe('Please provide a valid email');
-      expect(validateEmail('invalid@domain')).toBe(
+      expect(validateEmail('invalid', mockLocale)).toBe(
         'Please provide a valid email'
       );
-      expect(validateEmail('@domain.com')).toBe('Please provide a valid email');
-      expect(validateEmail('user@')).toBe('Please provide a valid email');
-      expect(validateEmail('user@domain')).toBe('Please provide a valid email');
-      expect(validateEmail('user.domain.com')).toBe(
+      expect(validateEmail('invalid@', mockLocale)).toBe(
+        'Please provide a valid email'
+      );
+      expect(validateEmail('invalid@domain', mockLocale)).toBe(
+        'Please provide a valid email'
+      );
+      expect(validateEmail('@domain.com', mockLocale)).toBe(
+        'Please provide a valid email'
+      );
+      expect(validateEmail('user@', mockLocale)).toBe(
+        'Please provide a valid email'
+      );
+      expect(validateEmail('user@domain', mockLocale)).toBe(
+        'Please provide a valid email'
+      );
+      expect(validateEmail('user.domain.com', mockLocale)).toBe(
         'Please provide a valid email'
       );
     });
 
     test('validates valid email formats', () => {
-      expect(validateEmail('test@example.com')).toBeNull();
-      expect(validateEmail('user.name@domain.co.uk')).toBeNull();
-      expect(validateEmail('user+tag@domain.org')).toBeNull();
-      expect(validateEmail('user_name@domain-name.com')).toBeNull();
+      expect(validateEmail('test@example.com', mockLocale)).toBeNull();
+      expect(validateEmail('user.name@domain.co.uk', mockLocale)).toBeNull();
+      expect(validateEmail('user+tag@domain.org', mockLocale)).toBeNull();
+      expect(validateEmail('user_name@domain-name.com', mockLocale)).toBeNull();
     });
   });
 
   describe('validatePhone', () => {
     test('validates required phone number', () => {
-      expect(validatePhone('')).toBe('Phone number is required');
-      expect(validatePhone(null)).toBe('Phone number is required');
-      expect(validatePhone(undefined)).toBe('Phone number is required');
+      expect(validatePhone('', mockLocale)).toBe('Phone number is required');
+      expect(validatePhone(null, mockLocale)).toBe('Phone number is required');
+      expect(validatePhone(undefined, mockLocale)).toBe(
+        'Phone number is required'
+      );
     });
 
     test('validates invalid phone numbers', () => {
-      expect(validatePhone('123')).toBe('Please provide a valid phone number');
-      expect(validatePhone('12345')).toBe(
+      expect(validatePhone('123', mockLocale)).toBe(
         'Please provide a valid phone number'
       );
-      expect(validatePhone('123abc4567')).toBe(
+      expect(validatePhone('12345', mockLocale)).toBe(
         'Please provide a valid phone number'
       );
-      expect(validatePhone('abc1234567')).toBe(
+      expect(validatePhone('123abc4567', mockLocale)).toBe(
         'Please provide a valid phone number'
       );
-      expect(validatePhone('invalid')).toBe(
+      expect(validatePhone('abc1234567', mockLocale)).toBe(
+        'Please provide a valid phone number'
+      );
+      expect(validatePhone('invalid', mockLocale)).toBe(
         'Please provide a valid phone number'
       );
     });
 
     test('validates valid phone numbers', () => {
-      expect(validatePhone('+48123456789')).toBeNull(); // Polish number
-      expect(validatePhone('+14155552671')).toBeNull(); // US number
-      expect(validatePhone('+447911123456')).toBeNull(); // UK number
-      expect(validatePhone('+33123456789')).toBeNull(); // French number
-      expect(validatePhone('+12345678901')).toBeNull(); // US formatted
+      expect(validatePhone('+48123456789', mockLocale)).toBeNull(); // Polish number
+      expect(validatePhone('+14155552671', mockLocale)).toBeNull(); // US number
+      expect(validatePhone('+447911123456', mockLocale)).toBeNull(); // UK number
+      expect(validatePhone('+33123456789', mockLocale)).toBeNull(); // French number
+      expect(validatePhone('+12345678901', mockLocale)).toBeNull(); // US formatted
     });
 
     test('handles phone parsing errors gracefully', () => {
-      expect(validatePhone('++123')).toBe(
+      expect(validatePhone('++123', mockLocale)).toBe(
         'Please provide a valid phone number'
       );
-      expect(validatePhone('++')).toBe('Please provide a valid phone number');
+      expect(validatePhone('++', mockLocale)).toBe(
+        'Please provide a valid phone number'
+      );
     });
   });
 
   describe('validateProjectIdea', () => {
     test('validates required project idea', () => {
-      expect(validateProjectIdea('')).toBe('Project description is required');
-      expect(validateProjectIdea(null)).toBe('Project description is required');
-      expect(validateProjectIdea(undefined)).toBe(
+      expect(validateProjectIdea('', mockLocale)).toBe(
+        'Project description is required'
+      );
+      expect(validateProjectIdea(null, mockLocale)).toBe(
+        'Project description is required'
+      );
+      expect(validateProjectIdea(undefined, mockLocale)).toBe(
         'Project description is required'
       );
     });
 
     test('validates minimum length requirement', () => {
-      expect(validateProjectIdea('short')).toBe(
+      expect(validateProjectIdea('short', mockLocale)).toBe(
         'Please provide more details (minimum 12 characters)'
       );
-      expect(validateProjectIdea('11 chars!!')).toBe(
+      expect(validateProjectIdea('11 chars!!', mockLocale)).toBe(
         'Please provide more details (minimum 12 characters)'
       );
     });
 
     test('validates valid project descriptions', () => {
       expect(
-        validateProjectIdea('This is a valid project description')
+        validateProjectIdea('This is a valid project description', mockLocale)
       ).toBeNull();
-      expect(validateProjectIdea('Exactly12chr')).toBeNull(); // Fixed: now 12 chars
+      expect(validateProjectIdea('Exactly12chr', mockLocale)).toBeNull(); // Fixed: now 12 chars
       expect(
         validateProjectIdea(
-          'A much longer project description with lots of details'
+          'A much longer project description with lots of details',
+          mockLocale
         )
       ).toBeNull();
     });
@@ -109,13 +148,13 @@ describe('Form Validation Utils', () => {
 
   describe('validateConsent', () => {
     test('validates required consent', () => {
-      expect(validateConsent(false)).toBe('consent is required');
-      expect(validateConsent(false, 'Privacy')).toBe('Privacy is required');
+      expect(validateConsent(false, mockLocale)).toBe(
+        'Privacy consent is required'
+      );
     });
 
     test('validates given consent', () => {
-      expect(validateConsent(true)).toBeNull();
-      expect(validateConsent(true, 'Privacy')).toBeNull();
+      expect(validateConsent(true, mockLocale)).toBeNull();
     });
   });
 
@@ -129,7 +168,7 @@ describe('Form Validation Utils', () => {
     };
 
     test('validates valid form data', () => {
-      const errors = validateContactForm(validFormData);
+      const errors = validateContactForm(validFormData, mockLocale);
       expect(errors).toEqual({});
     });
 
@@ -141,7 +180,7 @@ describe('Form Validation Utils', () => {
         privacyConsent: false,
       };
 
-      const errors = validateContactForm(invalidFormData);
+      const errors = validateContactForm(invalidFormData, mockLocale);
       expect(errors).toEqual({
         email: 'Email is required',
         phone: 'Phone number is required',
@@ -157,7 +196,7 @@ describe('Form Validation Utils', () => {
         email: 'invalid-email',
       };
 
-      const errors = validateContactForm(formDataWithEmailError);
+      const errors = validateContactForm(formDataWithEmailError, mockLocale);
       expect(errors.email).toBe('Please provide a valid email');
       expect(Object.keys(errors)).toHaveLength(1);
     });
@@ -168,7 +207,7 @@ describe('Form Validation Utils', () => {
         phone: 'invalid',
       };
 
-      const errors = validateContactForm(formDataWithPhoneError);
+      const errors = validateContactForm(formDataWithPhoneError, mockLocale);
       expect(errors.phone).toBe('Please provide a valid phone number');
     });
 
@@ -178,7 +217,7 @@ describe('Form Validation Utils', () => {
         projectIdea: 'short',
       };
 
-      const errors = validateContactForm(formDataWithProjectError);
+      const errors = validateContactForm(formDataWithProjectError, mockLocale);
       expect(errors.projectIdea).toBe(
         'Please provide more details (minimum 12 characters)'
       );

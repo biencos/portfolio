@@ -1,21 +1,39 @@
 /**
  * Form validation utilities
- * Centralized validation logic for contact forms
+ * Centralized validation logic for contact forms with locale support
  */
 
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 
 /**
+ * Get validation messages from locale
+ * @param {object} locale - Locale object containing validation messages
+ * @returns {object} Validation messages object
+ */
+const getValidationMessages = locale => ({
+  emailRequired: locale.contact.form.validation.emailRequired,
+  emailInvalid: locale.contact.form.validation.emailInvalid,
+  phoneRequired: locale.contact.form.validation.phoneRequired,
+  phoneInvalid: locale.contact.form.validation.phoneInvalid,
+  projectRequired: locale.contact.form.validation.projectRequired,
+  projectTooShort: locale.contact.form.validation.projectTooShort,
+  privacyRequired: locale.contact.form.validation.privacyRequired,
+  recaptchaRequired: locale.contact.form.validation.recaptchaRequired,
+});
+
+/**
  * Validate email address
  * @param {string} email - Email to validate
+ * @param {object} locale - Locale object for messages
  * @returns {string|null} Error message or null if valid
  */
-export const validateEmail = email => {
-  if (!email) return 'Email is required';
+export const validateEmail = (email, locale) => {
+  const messages = getValidationMessages(locale);
+  if (!email) return messages.emailRequired;
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return 'Please provide a valid email';
+    return messages.emailInvalid;
   }
 
   return null;
@@ -24,38 +42,42 @@ export const validateEmail = email => {
 /**
  * Validate phone number using libphonenumber-js
  * @param {string} phone - Phone number to validate
+ * @param {object} locale - Locale object for messages
  * @returns {string|null} Error message or null if valid
  */
-export const validatePhone = phone => {
-  if (!phone) return 'Phone number is required';
+export const validatePhone = (phone, locale) => {
+  const messages = getValidationMessages(locale);
+  if (!phone) return messages.phoneRequired;
 
   try {
     const phoneNumber = parsePhoneNumberFromString(phone);
 
     if (!phoneNumber) {
-      return 'Please provide a valid phone number';
+      return messages.phoneInvalid;
     }
 
     if (!phoneNumber.isValid()) {
-      return 'Please provide a valid phone number';
+      return messages.phoneInvalid;
     }
 
     return null;
   } catch {
-    return 'Please provide a valid phone number';
+    return messages.phoneInvalid;
   }
 };
 
 /**
  * Validate project description
  * @param {string} projectIdea - Project description to validate
+ * @param {object} locale - Locale object for messages
  * @returns {string|null} Error message or null if valid
  */
-export const validateProjectIdea = projectIdea => {
-  if (!projectIdea) return 'Project description is required';
+export const validateProjectIdea = (projectIdea, locale) => {
+  const messages = getValidationMessages(locale);
+  if (!projectIdea) return messages.projectRequired;
 
   if (projectIdea.length < 12) {
-    return 'Please provide more details (minimum 12 characters)';
+    return messages.projectTooShort;
   }
 
   return null;
@@ -64,12 +86,13 @@ export const validateProjectIdea = projectIdea => {
 /**
  * Validate checkbox consent
  * @param {boolean} isChecked - Checkbox state
- * @param {string} fieldName - Name of the field for error message
+ * @param {object} locale - Locale object for messages
  * @returns {string|null} Error message or null if valid
  */
-export const validateConsent = (isChecked, fieldName = 'consent') => {
+export const validateConsent = (isChecked, locale) => {
+  const messages = getValidationMessages(locale);
   if (!isChecked) {
-    return `${fieldName} is required`;
+    return messages.privacyRequired;
   }
   return null;
 };
@@ -77,29 +100,32 @@ export const validateConsent = (isChecked, fieldName = 'consent') => {
 /**
  * Validate entire contact form
  * @param {object} formData - Form data object
+ * @param {object} locale - Locale object for messages
  * @returns {object} Validation errors object
  */
-export const validateContactForm = formData => {
+export const validateContactForm = (formData, locale) => {
   const errors = {};
 
-  const emailError = validateEmail(formData.email);
+  const emailError = validateEmail(formData.email, locale);
   if (emailError) errors.email = emailError;
 
-  const phoneError = validatePhone(formData.phone);
+  const phoneError = validatePhone(formData.phone, locale);
   if (phoneError) errors.phone = phoneError;
 
-  const projectError = validateProjectIdea(formData.projectIdea);
+  const projectError = validateProjectIdea(formData.projectIdea, locale);
   if (projectError) errors.projectIdea = projectError;
 
-  const privacyError = validateConsent(
-    formData.privacyConsent,
-    'Privacy consent'
-  );
-  if (privacyError) errors.privacyConsent = 'Privacy consent is required';
+  const privacyError = validateConsent(formData.privacyConsent, locale);
+  if (privacyError) errors.privacyConsent = privacyError;
 
-  // reCAPTCHA validation
-  if (!formData.recaptchaToken) {
-    errors.recaptchaToken = 'Verification is required';
+  const messages = getValidationMessages(locale);
+
+  // reCAPTCHA validation (require in production or when configured)
+  const isProduction = process.env.NODE_ENV === 'production';
+  const hasRecaptchaKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+
+  if ((isProduction || hasRecaptchaKey) && !formData.recaptchaToken) {
+    errors.recaptchaToken = messages.recaptchaRequired;
   }
 
   return errors;

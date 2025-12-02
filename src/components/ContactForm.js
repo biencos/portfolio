@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import ReCAPTCHA from 'react-google-recaptcha';
+import useTranslations from '../hooks/useTranslations';
 import './ContactForm.css';
 import PhoneInput from './PhoneInput';
 import {
@@ -22,6 +23,8 @@ const ContactForm = ({
   onRecaptchaChange,
   onSubmit,
 }) => {
+  const locale = useTranslations();
+  const t = locale.contact.form;
   const getFieldClass = (fieldName, fieldValue) => {
     // If field is focused and has an error, show typing state (navy blue)
     if (focusedField === fieldName && errors[fieldName]) {
@@ -36,13 +39,13 @@ const ContactForm = ({
     let isValid = false;
     switch (fieldName) {
       case 'email':
-        isValid = !validateEmail(fieldValue);
+        isValid = !validateEmail(fieldValue, locale);
         break;
       case 'phone':
-        isValid = !validatePhone(fieldValue);
+        isValid = !validatePhone(fieldValue, locale);
         break;
       case 'projectIdea':
-        isValid = !validateProjectIdea(fieldValue);
+        isValid = !validateProjectIdea(fieldValue, locale);
         break;
       default:
         isValid = false;
@@ -56,7 +59,7 @@ const ContactForm = ({
       return 'valid';
     }
 
-    return '';
+    return 'default';
   };
 
   const getRequiredClass = (fieldName, fieldValue) => {
@@ -73,13 +76,13 @@ const ContactForm = ({
     let isValid = false;
     switch (fieldName) {
       case 'email':
-        isValid = !validateEmail(fieldValue);
+        isValid = !validateEmail(fieldValue, locale);
         break;
       case 'phone':
-        isValid = !validatePhone(fieldValue);
+        isValid = !validatePhone(fieldValue, locale);
         break;
       case 'projectIdea':
-        isValid = !validateProjectIdea(fieldValue);
+        isValid = !validateProjectIdea(fieldValue, locale);
         break;
       default:
         isValid = false;
@@ -117,7 +120,7 @@ const ContactForm = ({
           {/* Email */}
           <div className='form-field email-field'>
             <label className='field-label'>
-              Email
+              {t.email}
               <span className={getRequiredClass('email', formData.email)}>
                 *
               </span>
@@ -129,7 +132,7 @@ const ContactForm = ({
               onChange={onInputChange}
               onBlur={onBlur}
               onFocus={onFocus}
-              placeholder='Your email address'
+              placeholder={t.emailPlaceholder}
               className={getFieldClass('email', formData.email)}
             />
             {shouldShowError('email') ? (
@@ -142,7 +145,7 @@ const ContactForm = ({
           {/* Phone Number */}
           <div className='form-field phone-field'>
             <label className='field-label'>
-              Phone Number
+              {t.phone}
               <span className={getRequiredClass('phone', formData.phone)}>
                 *
               </span>
@@ -154,6 +157,7 @@ const ContactForm = ({
               onBlur={onBlur}
               onFocus={onFocus}
               fieldClass={getFieldClass('phone', formData.phone)}
+              placeholder={t.phonePlaceholder}
             />
             {shouldShowError('phone') ? (
               <span className='error-message'>{errors.phone}</span>
@@ -166,7 +170,7 @@ const ContactForm = ({
         {/* Project Description */}
         <div className='form-field'>
           <label className='field-label'>
-            Project Description
+            {t.projectIdea}
             <span
               className={getRequiredClass('projectIdea', formData.projectIdea)}
             >
@@ -179,10 +183,7 @@ const ContactForm = ({
             onChange={onInputChange}
             onBlur={onBlur}
             onFocus={onFocus}
-            placeholder={`Your project idea
-
-For e.x.:
-Hi, I would like to create an e-commerce shop ...`}
+            placeholder={t.projectIdeaPlaceholder}
             rows='7'
             className={getFieldClass('projectIdea', formData.projectIdea)}
           />
@@ -202,19 +203,20 @@ Hi, I would like to create an e-commerce shop ...`}
               checked={formData.privacyConsent}
               onChange={onInputChange}
               className={`checkbox-input ${errors.privacyConsent ? 'error' : ''}`}
+              aria-label={t.privacyConsentAriaLabel}
             />
             <span className='checkbox-text'>
-              I agree to the{' '}
+              {t.privacyConsent}
               <a
                 href='/privacy-policy'
                 target='_blank'
                 rel='noopener noreferrer'
               >
-                Privacy Policy
-              </a>{' '}
-              and{' '}
+                <strong>{t.privacyConsentPrivacy}</strong>
+              </a>
+              {t.privacyConsentAnd}
               <a href='/terms-of-use' target='_blank' rel='noopener noreferrer'>
-                Terms of Use
+                <strong>{t.privacyConsentTerms}</strong>
               </a>
             </span>
           </label>
@@ -226,18 +228,33 @@ Hi, I would like to create an e-commerce shop ...`}
         </div>
 
         {/* reCAPTCHA */}
-        <div className='form-field recaptcha-field'>
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
-            onChange={onRecaptchaChange}
-            theme='dark'
-            hl='en'
-          />
-          {errors.recaptchaToken ? (
-            <span className='error-message'>{errors.recaptchaToken}</span>
+        <div
+          className='form-field recaptcha-field'
+          role='region'
+          aria-label={t.recaptchaLabel}
+        >
+          {process.env.REACT_APP_RECAPTCHA_SITE_KEY ? (
+            <div className='form-field recaptcha-field'>
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY}
+                onChange={onRecaptchaChange}
+                theme='dark'
+                hl={process.env.REACT_APP_LOCALE || 'en'}
+              />
+              {errors.recaptchaToken ? (
+                <span className='error-message'>{errors.recaptchaToken}</span>
+              ) : (
+                <div className='error-placeholder'></div>
+              )}
+            </div>
           ) : (
-            <div className='error-placeholder'></div>
+            <div className='form-field recaptcha-field'>
+              <p className='demo-notice'>
+                reCAPTCHA verification is not configured in demo mode.
+              </p>
+              <div className='error-placeholder'></div>
+            </div>
           )}
         </div>
 
@@ -247,7 +264,7 @@ Hi, I would like to create an e-commerce shop ...`}
             disabled={isSubmitting}
             className={`submit-btn ${isValid ? 'active' : 'disabled'}`}
           >
-            {isSubmitting ? 'Sending...' : 'Submit'}
+            {isSubmitting ? t.sending : t.submit}
           </button>
         </div>
 

@@ -6,25 +6,28 @@ This project uses a comprehensive linting and formatting setup to ensure code qu
 
 ### ESLint
 - **Purpose**: JavaScript/React code linting and error detection
-- **Config**: `.eslintrc.js`
+- **Config**: `eslint.config.mjs` (ESLint v9 flat config)
 - **Extends**: 
-  - `eslint:recommended`
-  - `plugin:react/recommended`
-  - `plugin:react-hooks/recommended`
-  - `prettier` (to disable conflicting rules)
+  - `@eslint/js` recommended rules
+  - `eslint-plugin-react` with React 18 support
+  - `eslint-plugin-react-hooks` for hooks validation
+  - `eslint-plugin-prettier` integration
 
 ### Prettier
 - **Purpose**: Code formatting
 - **Config**: `.prettierrc`
-- **Settings**: 
-  - Single quotes for JS/JSX
-  - 2-space indentation
-  - Semi-colons enabled
-  - 80 character line width
+- **Key Settings**: 
+  - Single quotes for strings and JSX (`singleQuote: true`, `jsxSingleQuote: true`)
+  - 2-space indentation (`tabWidth: 2`)
+  - Semi-colons enabled (`semi: true`)
+  - 80 character line width (`printWidth: 80`)
+  - Trailing commas for ES5 compatibility (`trailingComma: 'es5'`)
+  - Auto line endings (`endOfLine: 'auto'`)
 
 ### PropTypes
 - **Purpose**: React component prop validation
-- **Usage**: Add to all components with props
+- **Usage**: Validation warnings for components with props
+- **Level**: Warning (not enforced as error)
 
 ### Husky + lint-staged
 - **Purpose**: Pre-commit hooks for automated quality checks
@@ -71,9 +74,10 @@ The `.vscode/settings.json` file configures:
 
 ### ESLint Rules
 - **React**: `react-in-jsx-scope` disabled (React 17+)
-- **PropTypes**: Required for all components
-- **Hooks**: Strict hooks rules enforced
-- **General**: No unused vars, prefer const, no var
+- **PropTypes**: Warnings for missing prop validation
+- **React Hooks**: Strict hooks rules enforced (`rules-of-hooks` error, `exhaustive-deps` warning)
+- **General**: No unused vars (warn), no console (warn), prefer const (error), no var (error)
+- **Test Files**: Console allowed in `*.test.js` and `__tests__/` files
 
 ### Prettier Rules
 - Single quotes for strings
@@ -93,7 +97,7 @@ Every commit automatically:
 
 ```
 portfolio/
-├── .eslintrc.js          # ESLint configuration
+├── eslint.config.mjs     # ESLint v9 flat configuration
 ├── .prettierrc           # Prettier configuration
 ├── .prettierignore       # Prettier ignore patterns
 ├── .editorconfig         # Editor configuration
@@ -111,6 +115,9 @@ portfolio/
 - **Automation**: No manual formatting needed
 - **Team**: Reduces style debates and review time
 - **Professional**: Industry-standard tooling and practices
+- **Modern Setup**: ESLint v9 flat config with React 18 support
+- **Test Security**: Global mocks prevent production API calls during testing
+- **Type Safety**: PropTypes validation for all React components
 
 ## Troubleshooting
 

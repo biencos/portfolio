@@ -1,10 +1,13 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Footer from '../Footer';
+import { getLocale } from '../../utils/testUtils';
+
+const locale = getLocale();
 
 describe('Footer Component', () => {
   test('renders footer logo', () => {
     render(<Footer />);
-    const logo = screen.getByAltText('Portfolio logo');
+    const logo = screen.getByAltText(locale.footer.logoAlt);
     expect(logo).toBeInTheDocument();
     expect(logo).toHaveAttribute('src', '/logo_light.svg');
   });
@@ -12,32 +15,35 @@ describe('Footer Component', () => {
   test('renders navigation links', () => {
     render(<Footer />);
 
-    expect(screen.getByLabelText('Privacy Policy')).toBeInTheDocument();
-    expect(screen.getByLabelText('Terms of Use')).toBeInTheDocument();
-    expect(screen.getByLabelText('GitHub Profile')).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(locale.footer.ariaLabels.privacyPolicy)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(locale.footer.ariaLabels.termsOfUse)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(locale.footer.ariaLabels.github)
+    ).toBeInTheDocument();
   });
 
   test('renders correct link urls', () => {
     render(<Footer />);
 
-    expect(screen.getByLabelText('Privacy Policy')).toHaveAttribute(
-      'href',
-      '/privacy-policy'
-    );
-    expect(screen.getByLabelText('Terms of Use')).toHaveAttribute(
-      'href',
-      '/terms-of-use'
-    );
-    expect(screen.getByLabelText('GitHub Profile')).toHaveAttribute(
-      'href',
-      'https://github.com/biencos'
-    );
+    expect(
+      screen.getByLabelText(locale.footer.ariaLabels.privacyPolicy)
+    ).toHaveAttribute('href', '/privacy-policy');
+    expect(
+      screen.getByLabelText(locale.footer.ariaLabels.termsOfUse)
+    ).toHaveAttribute('href', '/terms-of-use');
+    expect(
+      screen.getByLabelText(locale.footer.ariaLabels.github)
+    ).toHaveAttribute('href', 'https://github.com/biencos');
   });
 
   test('github link opens in new tab', () => {
     render(<Footer />);
 
-    const githubLink = screen.getByLabelText('GitHub Profile');
+    const githubLink = screen.getByLabelText(locale.footer.ariaLabels.github);
     expect(githubLink).toHaveAttribute('target', '_blank');
     expect(githubLink).toHaveAttribute('rel', 'noopener noreferrer');
   });
@@ -46,9 +52,11 @@ describe('Footer Component', () => {
     render(<Footer />);
 
     const currentYear = new Date().getFullYear();
-    expect(
-      screen.getByText(`© Copyrighted by biencos, ${currentYear}`)
-    ).toBeInTheDocument();
+    const expectedCopyright = locale.footer.copyright.replace(
+      '{year}',
+      currentYear.toString()
+    );
+    expect(screen.getByText(expectedCopyright)).toBeInTheDocument();
   });
 
   test('has proper semantic structure', () => {
@@ -62,7 +70,7 @@ describe('Footer Component', () => {
   test('displays logo correctly', () => {
     render(<Footer />);
 
-    const logo = screen.getByAltText('Portfolio logo');
+    const logo = screen.getByAltText(locale.footer.logoAlt);
     expect(logo).toHaveAttribute('src', '/logo_light.svg');
   });
 });

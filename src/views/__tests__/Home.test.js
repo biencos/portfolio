@@ -1,6 +1,8 @@
 import { screen } from '@testing-library/react';
-import { renderWithRouter } from '../../utils/testUtils';
+import { renderWithRouter, getLocale } from '../../utils/testUtils';
 import Home from '../Home';
+
+const locale = getLocale();
 
 // Mock ServiceCard component to avoid PropTypes scope issues
 jest.mock('../../components/ServiceCard', () => {
@@ -109,7 +111,9 @@ describe('Home View', () => {
   it('renders experience section', () => {
     renderWithRouter(<Home />);
 
-    expect(screen.getByText('Professional Experience')).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.experience.sectionTitle)
+    ).toBeInTheDocument();
     const experienceCards = screen.getAllByTestId('experience-card');
     expect(experienceCards.length).toBeGreaterThan(0);
   });

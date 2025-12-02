@@ -1,12 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import ClientFlags from '../ClientFlags';
+import { getLocale } from '../../utils/testUtils';
+
+const locale = getLocale();
 
 describe('ClientFlags Component', () => {
   test('renders heading text', () => {
     render(<ClientFlags />);
-    expect(screen.getByText('Clients')).toBeInTheDocument();
     expect(
-      screen.getByText('Business partners from all over the world')
+      screen.getByText(locale.clientFlags.sectionTitle)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.clientFlags.sectionSubtitle)
     ).toBeInTheDocument();
   });
 
@@ -27,11 +32,21 @@ describe('ClientFlags Component', () => {
   test('renders country names', () => {
     render(<ClientFlags />);
 
-    expect(screen.getAllByText('United States')).toHaveLength(3);
-    expect(screen.getAllByText('United Kingdom')).toHaveLength(3);
-    expect(screen.getAllByText('Poland')).toHaveLength(3);
-    expect(screen.getAllByText('South Korea')).toHaveLength(3);
-    expect(screen.getAllByText('Norway')).toHaveLength(3);
+    expect(
+      screen.getAllByText(locale.clientFlags.countryNames.unitedStates)
+    ).toHaveLength(3);
+    expect(
+      screen.getAllByText(locale.clientFlags.countryNames.unitedKingdom)
+    ).toHaveLength(3);
+    expect(
+      screen.getAllByText(locale.clientFlags.countryNames.poland)
+    ).toHaveLength(3);
+    expect(
+      screen.getAllByText(locale.clientFlags.countryNames.southKorea)
+    ).toHaveLength(3);
+    expect(
+      screen.getAllByText(locale.clientFlags.countryNames.norway)
+    ).toHaveLength(3);
   });
 
   test('has scrolling animation structure', () => {

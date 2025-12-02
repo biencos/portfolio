@@ -1,175 +1,119 @@
 import { Helmet } from 'react-helmet';
+import useTranslations from '../hooks/useTranslations';
 import './PrivacyPolicy.css';
 
-const PrivacyPolicy = () => (
-  <div className='legal-page'>
-    <Helmet>
-      <title>Privacy Policy - Portfolio</title>
-      <meta property='og:title' content='Privacy Policy - Portfolio' />
-      <meta
-        name='description'
-        content='Privacy Policy for our portfolio website and contact services.'
-      />
-    </Helmet>
+const PrivacyPolicy = () => {
+  const locale = useTranslations();
+  const t = locale.privacyPolicy;
 
-    <div className='legal-content'>
-      <h1>Privacy Policy</h1>
-      <p className='last-updated'>Effective Date: august 20, 2025</p>
+  return (
+    <div className='legal-page'>
+      <Helmet>
+        <title>
+          {t.title} - {locale.site.title}
+        </title>
+        <meta
+          property='og:title'
+          content={`${t.title} - ${locale.site.title}`}
+        />
+        <meta name='description' content={t.metaDescription} />
+      </Helmet>
 
-      <section>
-        <h2>Introduction</h2>
-        <p>
-          We (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) value your
-          privacy and are committed to protecting your personal information.
-          This Privacy Policy explains how we collect, use, disclose, and
-          safeguard your information when you visit our portfolio website and
-          interact with our services.
-        </p>
-      </section>
+      <div className='legal-content'>
+        <h1>{t.title}</h1>
+        <p className='last-updated'>{t.effectiveDate}</p>
 
-      <section>
-        <h2>Information We Collect</h2>
-        <h3>Personal Information</h3>
-        <p>
-          When you contact us through our contact form or other communication
-          methods, we may collect your email address, phone number (optional),
-          and your project idea or inquiry description.
-        </p>
-        <h3>Automatically Collected Data</h3>
-        <p>
-          We may also collect your IP address and technical data to help secure
-          and maintain the website.
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.introduction.heading}</h2>
+          <p>{t.sections.introduction.content}</p>
+        </section>
 
-      <section>
-        <h2>How We Use Your Information</h2>
-        <p>We use the information we collect to:</p>
-        <ul>
-          <li>
-            Respond to your inquiries and provide the requested information or
-            services
-          </li>
-          <li>Communicate with you regarding your requests</li>
-          <li>Maintain and improve our website security and functionality</li>
-          <li>Comply with legal obligations</li>
-        </ul>
-      </section>
+        <section>
+          <h2>{t.sections.informationWeCollect.heading}</h2>
+          <h3>{t.sections.informationWeCollect.personal.heading}</h3>
+          <p>{t.sections.informationWeCollect.personal.content}</p>
+          <h3>{t.sections.informationWeCollect.automatic.heading}</h3>
+          <p>{t.sections.informationWeCollect.automatic.content}</p>
+        </section>
 
-      <section>
-        <h2>Legal Bases for Processing (EU GDPR)</h2>
-        <p>
-          If you are located in the European Economic Area (EEA), our legal
-          basis for collecting and using your personal information depends on
-          the information concerned and the specific context, including:
-        </p>
-        <ul>
-          <li>Your consent</li>
-          <li>
-            Our legitimate interests, such as responding to inquiries and
-            maintaining site security
-          </li>
-          <li>Compliance with a legal obligation</li>
-        </ul>
-      </section>
+        <section>
+          <h2>{t.sections.howWeUse.heading}</h2>
+          <p>{t.sections.howWeUse.intro}</p>
+          <ul>
+            {t.sections.howWeUse.items.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </section>
 
-      <section>
-        <h2>Data Sharing and Disclosure</h2>
-        <p>
-          We do not sell, rent, or lease your personal information to third
-          parties. We may share your data only with trusted service providers
-          who assist us in operating our website and services (such as email
-          providers). These providers are obligated to keep your information
-          confidential.
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.legalBases.heading}</h2>
+          <p>{t.sections.legalBases.intro}</p>
+          <ul>
+            {t.sections.legalBases.items.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+        </section>
 
-      <section>
-        <h2>Data Security</h2>
-        <p>
-          We implement reasonable administrative, technical, and physical
-          measures designed to protect your personal data from unauthorized
-          access, disclosure, alteration, or destruction. However, no internet
-          transmission or electronic storage method is completely secure.
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.dataSharing.heading}</h2>
+          <p>{t.sections.dataSharing.content}</p>
+        </section>
 
-      <section>
-        <h2>Your Rights</h2>
-        <p>
-          Depending on your location, you may have the following rights
-          regarding your personal data:
-        </p>
-        <ul>
-          <li>Access to the data we hold about you</li>
-          <li>Correction of inaccurate personal data</li>
-          <li>Erasure of your personal data (right to be forgotten)</li>
-          <li>Restriction or objection to our processing of your data</li>
-          <li>Data portability</li>
-          <li>
-            Withdrawal of consent at any time (where processing is based on
-            consent)
-          </li>
-        </ul>
-        <p>
-          To exercise any of these rights, please contact us at the details
-          below.
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.dataSecurity.heading}</h2>
+          <p>{t.sections.dataSecurity.content}</p>
+        </section>
 
-      <section>
-        <h2>Retention of Data</h2>
-        <p>
-          We retain your personal information only as long as necessary to
-          fulfill the purposes outlined in this Privacy Policy or comply with
-          legal requirements.
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.yourRights.heading}</h2>
+          <p>{t.sections.yourRights.intro}</p>
+          <ul>
+            {t.sections.yourRights.items.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+          <p>{t.sections.yourRights.contact}</p>
+        </section>
 
-      <section>
-        <h2>Cookies and Tracking</h2>
-        <p>
-          We do not currently use cookies or tracking technologies to collect
-          personal information beyond what is necessary for the functionality
-          and security of the website.
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.retention.heading}</h2>
+          <p>{t.sections.retention.content}</p>
+        </section>
 
-      <section>
-        <h2>International Data Transfers</h2>
-        <p>
-          As our clients are located worldwide, including Europe, Poland, and
-          the United States, your personal data may be transferred to and
-          processed in countries outside of your own. We ensure appropriate
-          safeguards are in place to protect your data in those transfers.
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.cookies.heading}</h2>
+          <p>{t.sections.cookies.content}</p>
+        </section>
 
-      <section>
-        <h2>Children&apos;s Privacy</h2>
-        <p>
-          Our website is not intended for children under the age of 13, and we
-          do not knowingly collect personal data from children under 13.
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.internationalTransfers.heading}</h2>
+          <p>{t.sections.internationalTransfers.content}</p>
+        </section>
 
-      <section>
-        <h2>Changes to This Privacy Policy</h2>
-        <p>
-          We may update this Privacy Policy from time to time. Any changes will
-          be posted on this page with an updated effective date.
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.childrenPrivacy.heading}</h2>
+          <p>{t.sections.childrenPrivacy.content}</p>
+        </section>
 
-      <section>
-        <h2>Contact Us</h2>
-        <p>
-          If you have questions or concerns about this Privacy Policy or your
-          personal data, you may contact us by email: biencos.dev@gmail.com
-        </p>
-      </section>
+        <section>
+          <h2>{t.sections.changes.heading}</h2>
+          <p>{t.sections.changes.content}</p>
+        </section>
+
+        <section>
+          <h2>{t.sections.contact.heading}</h2>
+          <p>
+            {t.sections.contact.text}{' '}
+            <a href='mailto:biencos.dev@gmail.com'>
+              {t.sections.contact.email}
+            </a>
+          </p>
+        </section>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default PrivacyPolicy;

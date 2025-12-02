@@ -6,9 +6,11 @@ import ExperienceCard from '../components/ExperienceCard';
 import ClientFlags from '../components/ClientFlags';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import useTranslations from '../hooks/useTranslations';
 import './Home.css';
 
 const Home = () => {
+  const t = useTranslations();
   const heroImageRef = useRef(null);
   const heroHeadingRef = useRef(null);
   const heroTextRef = useRef(null);
@@ -59,67 +61,23 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  const services = [
-    {
-      id: 1,
-      title: 'Mobile Applications',
-      description:
-        'Do you want to turn your requirements into beautiful mobile apps?\n\nLet me help!',
-      icon: '/mobile-200h.png',
-      topOffer: true,
-    },
-    {
-      id: 2,
-      title: 'Cloud Migration',
-      description:
-        'Do you want to use cloud architecture like AWS in your product?\n\nLet me help!',
-      icon: '/cloud-200h.png',
-    },
-    {
-      id: 3,
-      title: 'Freelancing',
-      description:
-        'Do you want someone extra to help out building of your product?\n\nLet me help!',
-      icon: '/desk-200h.png',
-      topOffer: true,
-    },
-  ];
+  const services = t.services.items.map((service, index) => {
+    return {
+      id: index + 1,
+      ...service,
+      icon: ['/mobile-200h.png', '/cloud-200h.png', '/desk-200h.png'][index],
+      topOffer: index === 0 || index === 2,
+      altText: service.imageAlt,
+    };
+  });
 
-  const experiences = [
-    {
-      id: 1,
-      position: 'Freelance Developer',
-      company: 'Independent',
-      duration: '2021 - Present',
-      type: 'freelance',
-      description:
-        'Building custom web applications and consulting for various clients.\n\nSpecialized in React, Node.js, and cloud solutions.\n\n...',
-    },
-    {
-      id: 2,
-      position: 'Full Stack Developer',
-      company: 'Digital Innovations',
-      duration: '2021 - 2023',
-      type: 'full-time',
-      description:
-        'Built responsive web applications with beatiful UI and RESTful APIs.\n\nImplemented CI/CD pipelines and reduced deployment time by 50%.\n\n...',
-    },
-    {
-      id: 3,
-      position: 'Senior Software Engineer',
-      company: 'Tech Solutions Inc.',
-      duration: '2023 - Present',
-      type: 'full-time',
-      description:
-        'Lead development of scalable web applications using AWS.\n\nMentored junior developers and improved team productivity by 30%.\n\n...',
-    },
-  ];
+  const experiences = t.experience.items;
 
   return (
     <div className='home-container'>
       <Helmet>
-        <title>Portfolio</title>
-        <meta property='og:title' content='Portfolio' />
+        <title>{t.site.title}</title>
+        <meta property='og:title' content={t.site.title} />
       </Helmet>
 
       {/* Home Section */}
@@ -131,22 +89,19 @@ const Home = () => {
         <div className='hero-content'>
           <div className='hero-text-container'>
             <h1 className='hero-heading' ref={heroHeadingRef}>
-              Build Something
-              <br />
-              Amazing Today
+              {t.hero.heading}
             </h1>
             <p className='hero-text' ref={heroTextRef}>
-              As a software engineer, I help{' '}
-              <span className='mobile-break'>companies around the world.</span>
+              {t.hero.text}
             </p>
             <div className='hero-cta-container' ref={heroButtonRef}>
               <a href='#contact' className='hero-cta-btn'>
-                <span>Contact me</span>
+                <span>{t.hero.cta}</span>
               </a>
             </div>
           </div>
           <img
-            alt='Portfolio showcase on mobile device'
+            alt={t.hero.imageAlt}
             src='/phone-1400w.png'
             className='hero-image'
             ref={heroImageRef}
@@ -158,15 +113,15 @@ const Home = () => {
       <div id='services' className='section-separator'></div>
       <div className='services-section'>
         <div className='services-header' ref={servicesHeaderRef}>
-          <h2 className='services-heading'>Services</h2>
-          <p className='services-text'>What I can offer</p>
+          <h2 className='services-heading'>{t.services.sectionTitle}</h2>
+          <p className='services-text'>{t.services.sectionSubtitle}</p>
         </div>
         <div className='services-cards' ref={servicesCardsRef}>
           {services.map(service => (
             <ServiceCard
               key={service.id}
               icon={service.icon}
-              alt={`${service.title} icon`}
+              alt={service.altText}
               title={service.title}
               description={service.description}
               topOffer={service.topOffer}
@@ -184,8 +139,8 @@ const Home = () => {
       <div id='experience' className='section-separator'></div>
       <section className='experience-section'>
         <div className='experience-header' ref={experienceHeaderRef}>
-          <h2 className='experience-heading'>Professional Experience</h2>
-          <p className='experience-text'>My journey in software development</p>
+          <h2 className='experience-heading'>{t.experience.sectionTitle}</h2>
+          <p className='experience-text'>{t.experience.sectionSubtitle}</p>
         </div>
         <div className='experience-cards' ref={experienceCardsRef}>
           {experiences.map(experience => (

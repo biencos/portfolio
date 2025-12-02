@@ -1,5 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import ContactForm from '../ContactForm';
+import { getLocale } from '../../utils/testUtils';
+
+const locale = getLocale();
 
 // Mock PhoneInput component
 jest.mock('../PhoneInput', () => {
@@ -67,16 +70,21 @@ describe('ContactForm Component', () => {
     render(<ContactForm {...defaultProps} />);
 
     expect(
-      screen.getByPlaceholderText(/your email address/i)
+      screen.getByPlaceholderText(locale.contact.form.emailPlaceholder)
     ).toBeInTheDocument();
     expect(screen.getByTestId('phone-input')).toBeInTheDocument();
+    // Use regex for projectIdea since it has newlines
     expect(
-      screen.getByPlaceholderText(/your project idea/i)
+      screen.getByPlaceholderText(/Tell me more about your project/i)
     ).toBeInTheDocument();
     expect(
-      screen.getByRole('checkbox', { name: /privacy policy/i })
+      screen.getByRole('checkbox', {
+        name: new RegExp(locale.contact.form.privacyConsent),
+      })
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: locale.contact.form.submit })
+    ).toBeInTheDocument();
   });
 
   test('displays form data values correctly', () => {
@@ -104,21 +112,27 @@ describe('ContactForm Component', () => {
     const propsWithErrors = {
       ...defaultProps,
       errors: {
-        email: 'Email is required',
-        phone: 'Phone is required',
-        projectIdea: 'Project description is required',
-        privacyConsent: 'Privacy consent is required',
+        email: locale.contact.form.validation.emailRequired,
+        phone: locale.contact.form.validation.phoneRequired,
+        projectIdea: locale.contact.form.validation.projectRequired,
+        privacyConsent: locale.contact.form.validation.privacyRequired,
       },
     };
 
     render(<ContactForm {...propsWithErrors} />);
 
-    expect(screen.getByText('Email is required')).toBeInTheDocument();
-    expect(screen.getByText('Phone is required')).toBeInTheDocument();
     expect(
-      screen.getByText('Project description is required')
+      screen.getByText(locale.contact.form.validation.emailRequired)
     ).toBeInTheDocument();
-    expect(screen.getByText('Privacy consent is required')).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.contact.form.validation.phoneRequired)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.contact.form.validation.projectRequired)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.contact.form.validation.privacyRequired)
+    ).toBeInTheDocument();
   });
 
   test('applies valid styling to fields with valid values when not focused', () => {
@@ -140,9 +154,9 @@ describe('ContactForm Component', () => {
 
     const phoneWrapper = document.querySelector('.phone-input-wrapper');
     expect(phoneWrapper).toHaveClass('valid');
-    expect(screen.getByPlaceholderText(/your project idea/i)).toHaveClass(
-      'valid'
-    );
+    expect(
+      screen.getByPlaceholderText(/tell me more about your project/i)
+    ).toHaveClass('valid');
   });
 
   test('applies typing styling to focused fields', () => {
@@ -190,9 +204,9 @@ describe('ContactForm Component', () => {
     expect(phoneWrapper).not.toHaveClass('typing');
 
     // Project idea should also have valid styling since it's valid and not focused
-    expect(screen.getByPlaceholderText(/your project idea/i)).toHaveClass(
-      'valid'
-    );
+    expect(
+      screen.getByPlaceholderText(/tell me more about your project/i)
+    ).toHaveClass('valid');
   });
 
   test('applies error styling to fields with errors', () => {
@@ -215,9 +229,9 @@ describe('ContactForm Component', () => {
     const phoneWrapper = document.querySelector('.phone-input-wrapper');
     expect(phoneWrapper).not.toBeNull();
     expect(phoneWrapper).toHaveClass('error');
-    expect(screen.getByPlaceholderText(/your project idea/i)).toHaveClass(
-      'error'
-    );
+    expect(
+      screen.getByPlaceholderText(/tell me more about your project/i)
+    ).toHaveClass('error');
   });
 
   test('applies typing styling to focused fields with errors', () => {
@@ -246,12 +260,12 @@ describe('ContactForm Component', () => {
     expect(phoneWrapper).toHaveClass('error');
     expect(phoneWrapper).not.toHaveClass('typing');
 
-    expect(screen.getByPlaceholderText(/your project idea/i)).toHaveClass(
-      'error'
-    );
-    expect(screen.getByPlaceholderText(/your project idea/i)).not.toHaveClass(
-      'typing'
-    );
+    expect(
+      screen.getByPlaceholderText(/tell me more about your project/i)
+    ).toHaveClass('error');
+    expect(
+      screen.getByPlaceholderText(/tell me more about your project/i)
+    ).not.toHaveClass('typing');
   });
 
   test('hides error messages when focused fields with errors show typing state', () => {
@@ -353,9 +367,12 @@ describe('ContactForm Component', () => {
     expect(mockOnInputChange).toHaveBeenCalled();
 
     // Test project idea textarea
-    fireEvent.change(screen.getByPlaceholderText(/your project idea/i), {
-      target: { value: 'Test project description' },
-    });
+    fireEvent.change(
+      screen.getByPlaceholderText(/tell me more about your project/i),
+      {
+        target: { value: 'Test project description' },
+      }
+    );
     expect(mockOnInputChange).toHaveBeenCalled();
 
     // Test privacy consent checkbox
@@ -425,20 +442,20 @@ describe('ContactForm Component', () => {
     render(<ContactForm {...props} />);
 
     expect(
-      screen.getByText('Thank you! Your message has been sent successfully.')
+      screen.getByText(locale.contact.form.messages.successSubmit)
     ).toBeInTheDocument();
   });
 
   test('displays error message when provided', () => {
     const props = {
       ...defaultProps,
-      submitMessage: 'Sorry, there was an error sending your message.',
+      submitMessage: locale.contact.form.messages.errorSubmit,
     };
 
     render(<ContactForm {...props} />);
 
     expect(
-      screen.getByText('Sorry, there was an error sending your message.')
+      screen.getByText(locale.contact.form.messages.errorSubmit)
     ).toBeInTheDocument();
   });
 
@@ -455,10 +472,12 @@ describe('ContactForm Component', () => {
   test('renders project idea placeholder text correctly', () => {
     render(<ContactForm {...defaultProps} />);
 
-    const projectTextarea = screen.getByPlaceholderText(/your project idea/i);
+    const projectTextarea = screen.getByPlaceholderText(
+      /tell me more about your project/i
+    );
     expect(projectTextarea).toHaveAttribute('placeholder');
     expect(projectTextarea.getAttribute('placeholder')).toContain(
-      'Your project idea'
+      'Tell me more about your project'
     );
   });
 
@@ -466,15 +485,19 @@ describe('ContactForm Component', () => {
     const propsWithRecaptchaError = {
       ...defaultProps,
       errors: {
-        recaptchaToken: 'Please verify you are human',
+        recaptchaToken: locale.contact.form.validation.recaptchaRequired,
       },
     };
 
     render(<ContactForm {...propsWithRecaptchaError} />);
 
-    expect(screen.getByText('Please verify you are human')).toBeInTheDocument();
+    expect(
+      screen.getByText(locale.contact.form.validation.recaptchaRequired)
+    ).toBeInTheDocument();
     // Check that the error message has the correct styling
-    const errorMessage = screen.getByText('Please verify you are human');
+    const errorMessage = screen.getByText(
+      locale.contact.form.validation.recaptchaRequired
+    );
     expect(errorMessage).toHaveClass('error-message');
   });
 
@@ -488,7 +511,7 @@ describe('ContactForm Component', () => {
 
     // Ensure no error message is displayed
     expect(
-      screen.queryByText(/please verify you are human/i)
+      screen.queryByText(locale.contact.form.validation.recaptchaRequired)
     ).not.toBeInTheDocument();
   });
 

@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
-    "@ipregistry/client": "^6.0.0",
     "libphonenumber-js": "^1.12.13",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -58,6 +56,7 @@
     "@babel/eslint-parser": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
     "@craco/craco": "^7.1.0",
+    "@emailjs/nodejs": "^5.0.2",
     "@eslint/js": "^9.33.0",
     "@testing-library/jest-dom": "^6.7.0",
     "@testing-library/react": "^16.3.0",

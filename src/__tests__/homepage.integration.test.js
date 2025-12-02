@@ -1,6 +1,8 @@
 import { screen, within } from '@testing-library/react';
 import Home from '../views/Home';
-import { renderWithRouter } from '../utils/testUtils';
+import { renderWithRouter, getLocale } from '../utils/testUtils';
+
+const locale = getLocale();
 
 // Test actual component integration without mocks
 describe('Home Page Integration', () => {
@@ -8,10 +10,16 @@ describe('Home Page Integration', () => {
     renderWithRouter(<Home />);
 
     // Navbar and Footer integration
-    const logos = screen.getAllByRole('img', { name: /portfolio logo/i });
+    const logos = screen.getAllByRole('img', { name: 'Portfolio logo' });
     expect(logos).toHaveLength(2); // One in navbar, one in footer
     expect(logos[0]).toHaveClass('navbar-logo');
     expect(logos[1]).toHaveClass('footer-logo');
+
+    // Hero image
+    expect(
+      screen.getByRole('img', { name: /phone mockup/i })
+    ).toBeInTheDocument();
+
     expect(screen.getByRole('link', { name: /home/i })).toBeInTheDocument();
 
     // Hero section integration
@@ -46,15 +54,16 @@ describe('Home Page Integration', () => {
   it('renders experience section with professional cards', () => {
     renderWithRouter(<Home />);
 
-    expect(screen.getByText('Professional Experience')).toBeInTheDocument();
-    expect(
-      screen.getByText(/My journey in software development/)
-    ).toBeInTheDocument();
+    const experienceSection = locale.experience?.sectionTitle || 'Experience';
+    expect(screen.getByText(experienceSection)).toBeInTheDocument();
 
-    // Check for experience items
-    expect(screen.getByText('Senior Software Engineer')).toBeInTheDocument();
-    expect(screen.getByText('Tech Solutions Inc.')).toBeInTheDocument();
-    expect(screen.getByText('2023 - Present')).toBeInTheDocument();
+    // Check for first experience card details from locale
+    const firstJob = locale.experience?.items?.[0];
+    if (firstJob) {
+      expect(screen.getByText(firstJob.position)).toBeInTheDocument();
+      expect(screen.getByText(firstJob.company)).toBeInTheDocument();
+      expect(screen.getByText(firstJob.duration)).toBeInTheDocument();
+    }
   });
 
   it('maintains responsive structure', () => {

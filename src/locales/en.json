@@ -1,0 +1,298 @@
+{
+  "site": {
+    "title": "Portfolio"
+  },
+  "navbar": {
+    "ariaLabel": "Toggle navigation menu",
+    "logoAlt": "Portfolio logo",
+    "links": {
+      "home": "Home",
+      "services": "Services",
+      "experience": "Experience",
+      "contact": "Contact"
+    }
+  },
+  "hero": {
+    "heading": "Build Something\nAmazing Today",
+    "text": "As a software engineer, I help companies around the world.",
+    "cta": "Contact me",
+    "imageAlt": "Phone mockup with portfolio logo"
+  },
+  "services": {
+    "sectionTitle": "Services",
+    "sectionSubtitle": "What I can offer",
+    "topOfferBadge": "Top Offer",
+    "items": [
+      {
+        "title": "Mobile Applications",
+        "description": "Do you want to turn your requirements into beautiful mobile apps?\n\nLet me help!",
+        "imageAlt": "Mobile Applications icon"
+      },
+      {
+        "title": "Cloud Migration",
+        "description": "Do you want to use cloud architecture like AWS in your product?\n\nLet me help!",
+        "imageAlt": "Cloud Migration icon"
+      },
+      {
+        "title": "Freelancing",
+        "description": "Do you want someone extra to help out building of your product?\n\nLet me help!",
+        "imageAlt": "Freelancing icon"
+      }
+    ]
+  },
+  "clientFlags": {
+    "sectionTitle": "Clients",
+    "sectionSubtitle": "Business partners from all over the world",
+    "ariaLabels": {
+      "countryListHeading": "Our business partners worldwide"
+    },
+    "countryNames": {
+      "unitedStates": "United States",
+      "unitedKingdom": "United Kingdom",
+      "poland": "Poland",
+      "southKorea": "South Korea",
+      "norway": "Norway"
+    },
+    "countryFlags": {
+      "unitedStates": "United States flag",
+      "unitedKingdom": "United Kingdom flag",
+      "poland": "Poland flag",
+      "southKorea": "South Korea flag",
+      "norway": "Norway flag"
+    }
+  },
+  "experience": {
+    "sectionTitle": "Professional Experience",
+    "sectionSubtitle": "My journey in software development",
+    "items": [
+      {
+        "id": 1,
+        "position": "Freelance Developer",
+        "company": "Independent",
+        "duration": "2021 - Present",
+        "type": "Freelance",
+        "description": "Building custom web applications and consulting for various clients.\n\nSpecialized in React, Node.js, and cloud solutions."
+      },
+      {
+        "id": 2,
+        "position": "Full Stack Developer",
+        "company": "Digital Innovations",
+        "duration": "2021 - 2023",
+        "type": "Full-time",
+        "description": "Built responsive web applications with beautiful UI and RESTful APIs.\n\nImplemented CI/CD pipelines and reduced deployment time by 50%."
+      },
+      {
+        "id": 3,
+        "position": "Senior Software Engineer",
+        "company": "Tech Solutions Inc.",
+        "duration": "2023 - Present",
+        "type": "Full-time",
+        "description": "Lead development of scalable web applications using AWS.\n\nMentored junior developers and improved team productivity by 30%."
+      }
+    ]
+  },
+  "contact": {
+    "sectionTitle": "Contact",
+    "sectionSubtitle": "Let's Work Together",
+    "form": {
+      "email": "Email",
+      "emailPlaceholder": "Your email address",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Your phone number",
+      "projectIdea": "Project Description",
+      "projectIdeaPlaceholder": "Tell me more about your project\n\nFor e.x.:\nHi, I would like to create an e-commerce shop ...",
+      "privacyConsent": "I agree to the ",
+      "privacyConsentPrivacy": "Privacy Policy",
+      "privacyConsentAnd": " and ",
+      "privacyConsentTerms": "Terms of Use",
+      "privacyConsentAriaLabel": "I agree to the Privacy Policy and Terms of Use",
+      "sending": "Sending...",
+      "submit": "Submit",
+      "validation": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please provide a valid email",
+        "phoneRequired": "Phone number is required",
+        "phoneInvalid": "Please provide a valid phone number",
+        "projectRequired": "Project description is required",
+        "projectTooShort": "Please provide more details (minimum 12 characters)",
+        "privacyRequired": "Privacy consent is required",
+        "recaptchaRequired": "Please verify you are human"
+      },
+      "messages": {
+        "successSubmit": "Thank you! Your message has been sent successfully.",
+        "errorSubmit": "Sorry, there was an error sending your message."
+      },
+      "recaptchaLabel": "Verify you are human"
+    }
+  },
+  "footer": {
+    "logoAlt": "Portfolio logo",
+    "links": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use",
+      "github": "GitHub"
+    },
+    "copyright": "© Copyrighted by biencos, {year}",
+    "ariaLabels": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfUse": "Terms of Use",
+      "github": "GitHub Profile"
+    }
+  },
+  "thankYou": {
+    "title": "Thank You!",
+    "message": "You will be contacted via your email within 24 hours",
+    "button": "Go Home",
+    "buttonAriaLabel": "Return to home page"
+  },
+  "notFound": {
+    "pageNotFoundHeading": "OOPS! PAGE NOT FOUND",
+    "title": "404 - Page Not Found",
+    "description": "THE PAGE YOU REQUESTED WAS NOT FOUND",
+    "button": "Go Home",
+    "ariaLabel": "Go to home page"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "metaDescription": "Privacy Policy for portfolio website and contact services.",
+    "effectiveDate": "Effective Date: August 20, 2025",
+    "sections": {
+      "introduction": {
+        "heading": "Introduction",
+        "content": "We (\"we\", \"us\", \"our\") value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit my portfolio website and interact with our services."
+      },
+      "informationWeCollect": {
+        "heading": "Information We Collect",
+        "personal": {
+          "heading": "Personal Information",
+          "content": "When you contact us through our contact form or other communication methods, we may collect your email address, phone number (optional), and your project idea or inquiry description."
+        },
+        "automatic": {
+          "heading": "Automatically Collected Data",
+          "content": "We may also collect your IP address and technical data to help secure and maintain the website."
+        }
+      },
+      "howWeUse": {
+        "heading": "How We Use Your Information",
+        "intro": "We use the information we collect to:",
+        "items": [
+          "Respond to your inquiries and provide the requested information or services",
+          "Communicate with you regarding your requests",
+          "Maintain and improve our website security and functionality",
+          "Comply with legal obligations"
+        ]
+      },
+      "legalBases": {
+        "heading": "Legal Bases for Processing (EU GDPR)",
+        "intro": "If you are located in the European Economic Area (EEA), our legal basis for collecting and using your personal information depends on the information concerned and the specific context, including:",
+        "items": [
+          "Your consent",
+          "Our legitimate interests, such as responding to inquiries and maintaining site security",
+          "Compliance with a legal obligation"
+        ]
+      },
+      "dataSharing": {
+        "heading": "Data Sharing and Disclosure",
+        "content": "We do not sell, rent, or lease your personal information to third parties. We may share your data only with trusted service providers who assist us in operating our website and services (such as email providers). These providers are obligated to keep your information confidential."
+      },
+      "dataSecurity": {
+        "heading": "Data Security",
+        "content": "We implement reasonable administrative, technical, and physical measures designed to protect your personal data from unauthorized access, disclosure, alteration, or destruction. However, no internet transmission or electronic storage method is completely secure."
+      },
+      "yourRights": {
+        "heading": "Your Rights",
+        "intro": "Depending on your location, you may have the following rights regarding your personal data:",
+        "items": [
+          "Access to the data we hold about you",
+          "Correction of inaccurate personal data",
+          "Erasure of your personal data (right to be forgotten)",
+          "Restriction or objection to our processing of your data",
+          "Data portability",
+          "Withdrawal of consent at any time (where processing is based on consent)"
+        ],
+        "contact": "To exercise any of these rights, please contact us at the details below."
+      },
+      "retention": {
+        "heading": "Retention of Data",
+        "content": "We retain your personal information only as long as necessary to fulfill the purposes outlined in this Privacy Policy or comply with legal requirements."
+      },
+      "cookies": {
+        "heading": "Cookies and Tracking",
+        "content": "We do not currently use cookies or tracking technologies to collect personal information beyond what is necessary for the functionality and security of the website."
+      },
+      "internationalTransfers": {
+        "heading": "International Data Transfers",
+        "content": "As our clients are located worldwide, including Europe, Poland, and the United States, your personal data may be transferred to and processed in countries outside of your own. We ensure appropriate safeguards are in place to protect your data in those transfers."
+      },
+      "childrenPrivacy": {
+        "heading": "Children's Privacy",
+        "content": "Our website is not intended for children under the age of 13, and we do not knowingly collect personal data from children under 13."
+      },
+      "changes": {
+        "heading": "Changes to This Privacy Policy",
+        "content": "We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date."
+      },
+      "contact": {
+        "heading": "Contact Us",
+        "text": "If you have questions or concerns about this Privacy Policy or your personal data, you may contact us by email:",
+        "email": "biencos.dev@gmail.com"
+      }
+    }
+  },
+  "termsOfUse": {
+    "title": "Terms of Use",
+    "metaDescription": "Terms of Use for my portfolio website and services.",
+    "effectiveDate": "Effective Date: August 20, 2025",
+    "intro": "Welcome to my portfolio website. By accessing and using this website, you agree to comply with and be bound by the following terms:",
+    "sections": {
+      "useOfWebsite": {
+        "heading": "Use of Website",
+        "items": [
+          "The content on this website, including text, images, and code, is owned by us and is protected by intellectual property laws",
+          "You may use the website for your personal, non-commercial purposes only",
+          "You agree not to use this website for any unlawful purpose or in any way that may damage or impair its functionality"
+        ]
+      },
+      "userSubmissions": {
+        "heading": "User Submissions",
+        "items": [
+          "By submitting information through our website or communication channels, you warrant that the information provided is accurate and truthful",
+          "You consent to the processing of this information as outlined in our Privacy Policy",
+          "You acknowledge that communications through the website are not guaranteed to be secure"
+        ]
+      },
+      "intellectualProperty": {
+        "heading": "Intellectual Property",
+        "items": [
+          "All intellectual property rights related to this website's content remain with us or the respective owners",
+          "You may not reproduce, distribute, or create derivative works based on the website content without explicit permission"
+        ]
+      },
+      "disclaimers": {
+        "heading": "Disclaimers",
+        "items": [
+          "This website is provided \"as is\" without any warranties, express or implied",
+          "We do not guarantee the accuracy, completeness, or timeliness of the content",
+          "We are not liable for any damages arising from the use or inability to use this website"
+        ]
+      },
+      "limitationOfLiability": {
+        "heading": "Limitation of Liability",
+        "content": "To the maximum extent permitted by law, we shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your use of this website."
+      },
+      "governingLaw": {
+        "heading": "Governing Law",
+        "content": "These terms are governed by and construed in accordance with applicable international laws and regulations, without regard to conflict of law principles."
+      },
+      "changes": {
+        "heading": "Changes to Terms",
+        "content": "We reserve the right to modify these Terms of Use at any time. Changes will be posted on this page with the updated effective date."
+      },
+      "contact": {
+        "heading": "Contact Us",
+        "text": "For any questions about these Terms of Use, please contact us by email:",
+        "email": "biencos.dev@gmail.com"
+      }
+    }
+  }
+}

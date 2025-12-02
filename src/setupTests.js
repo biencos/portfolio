@@ -22,7 +22,15 @@ global.IntersectionObserver = class IntersectionObserver {
 };
 
 // Mock environment variables for tests
+// Only public RECAPTCHA_SITE_KEY is needed in frontend
 process.env.REACT_APP_RECAPTCHA_SITE_KEY = 'test-site-key';
+process.env.REACT_APP_EMAILJS_SERVICE_ID = 'test-service-id';
+process.env.REACT_APP_EMAILJS_TEMPLATE_ID = 'test-template-id';
+process.env.REACT_APP_EMAILJS_PUBLIC_KEY = 'test-public-key';
+
+// Note: Email service (Resend) API key is ONLY on Netlify backend
+// Frontend only needs public RECAPTCHA_SITE_KEY for reCAPTCHA verification
+// The send-email function is mocked for testing
 
 // Mock window.matchMedia for responsive design tests
 Object.defineProperty(window, 'matchMedia', {
@@ -46,7 +54,7 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
 }));
 
-// Mock reCAPTCHA component
+// Mock reCAPTCHA component (only needs public site key)
 jest.mock('react-google-recaptcha', () => {
   const React = require('react');
   const PropTypes = require('prop-types');
@@ -73,4 +81,32 @@ jest.mock('react-google-recaptcha', () => {
 
   MockReCAPTCHA.displayName = 'ReCAPTCHA';
   return MockReCAPTCHA;
+});
+
+// Mock Netlify function for email sending
+// This mocks the backend send-email endpoint for testing
+const originalFetch = global.fetch;
+global.fetch = jest.fn((url, options) => {
+  // Mock the send-email function
+  if (url === '/.netlify/functions/send-email') {
+    const responseBody = {
+      success: true,
+      message: 'Email sent successfully',
+      messageId: 200,
+    };
+
+    return Promise.resolve({
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve(responseBody),
+    });
+  }
+
+  // For any other fetch calls, use original if available
+  if (originalFetch && typeof originalFetch === 'function') {
+    return originalFetch(url, options);
+  }
+
+  // Otherwise return rejected promise
+  return Promise.reject(new Error(`Unexpected fetch call to ${url}`));
 });

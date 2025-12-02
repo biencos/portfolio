@@ -1,6 +1,9 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import Contact from '../Contact';
+import { getLocale } from '../../utils/testUtils';
+
+const locale = getLocale();
 
 // Mock useNavigate
 const mockNavigate = jest.fn();
@@ -38,13 +41,13 @@ describe('Contact Component', () => {
     });
 
     expect(
-      screen.getByRole('heading', { name: /contact/i })
+      screen.getByRole('heading', { name: locale.contact.sectionTitle })
     ).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText(/your email address/i)
+      screen.getByPlaceholderText(locale.contact.form.emailPlaceholder)
     ).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText(/your project idea/i)
+      screen.getByPlaceholderText(/tell me more about your project/i)
     ).toBeInTheDocument();
     expect(screen.getByText(/i agree to the/i)).toBeInTheDocument();
   });
@@ -59,7 +62,9 @@ describe('Contact Component', () => {
       ).not.toBeInTheDocument();
     });
 
-    const submitButton = screen.getByRole('button', { name: /submit/i });
+    const submitButton = screen.getByRole('button', {
+      name: locale.contact.form.submit,
+    });
     expect(submitButton).not.toBeDisabled();
     expect(submitButton).toHaveClass('disabled');
   });
@@ -74,13 +79,21 @@ describe('Contact Component', () => {
       ).not.toBeInTheDocument();
     });
 
-    const emailInput = screen.getByPlaceholderText(/your email address/i);
-    const phoneInput = screen.getByPlaceholderText(/your phone number/i);
-    const projectInput = screen.getByPlaceholderText(/your project idea/i);
+    const emailInput = screen.getByPlaceholderText(
+      locale.contact.form.emailPlaceholder
+    );
+    const phoneInput = screen.getByPlaceholderText(
+      locale.contact.form.phonePlaceholder
+    );
+    const projectInput = screen.getByPlaceholderText(
+      /tell me more about your project/i
+    );
     const privacyCheckbox = screen.getByRole('checkbox', {
-      name: /i agree to the/i,
+      name: new RegExp(locale.contact.form.privacyConsent),
     });
-    const submitButton = screen.getByRole('button', { name: /submit/i });
+    const submitButton = screen.getByRole('button', {
+      name: locale.contact.form.submit,
+    });
 
     // Fill out all required fields
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
@@ -118,7 +131,7 @@ describe('Contact Component', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('Please provide a valid email')
+        screen.getByText(locale.contact.form.validation.emailInvalid)
       ).toBeInTheDocument();
     });
   });
@@ -126,14 +139,16 @@ describe('Contact Component', () => {
   it('validates project idea minimum length', async () => {
     render(<ContactWithRouter />);
 
-    const projectInput = screen.getByPlaceholderText(/your project idea/i);
+    const projectInput = screen.getByPlaceholderText(
+      /tell me more about your project/i
+    );
 
     fireEvent.change(projectInput, { target: { value: 'Short' } });
     fireEvent.blur(projectInput);
 
     await waitFor(() => {
       expect(
-        screen.getByText('Please provide more details (minimum 12 characters)')
+        screen.getByText(locale.contact.form.validation.projectTooShort)
       ).toBeInTheDocument();
     });
   });
@@ -149,7 +164,7 @@ describe('Contact Component', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('Please provide a valid phone number')
+        screen.getByText(locale.contact.form.validation.phoneInvalid)
       ).toBeInTheDocument();
     });
   });
@@ -157,7 +172,9 @@ describe('Contact Component', () => {
   it('shows project idea placeholder text', () => {
     render(<ContactWithRouter />);
 
-    const projectInput = screen.getByPlaceholderText(/your project idea/i);
+    const projectInput = screen.getByPlaceholderText(
+      /tell me more about your project/i
+    );
     expect(projectInput).toBeInTheDocument();
     expect(projectInput).toHaveAttribute(
       'placeholder',
@@ -170,7 +187,9 @@ describe('Contact Component', () => {
 
     const emailInput = screen.getByPlaceholderText(/your email address/i);
     const phoneInput = screen.getByPlaceholderText(/your phone number/i);
-    const projectInput = screen.getByPlaceholderText(/your project idea/i);
+    const projectInput = screen.getByPlaceholderText(
+      /tell me more about your project/i
+    );
     const privacyCheckbox = screen.getByRole('checkbox', {
       name: /i agree to the/i,
     });
@@ -207,13 +226,11 @@ describe('Contact Component', () => {
     // Submit form
     fireEvent.click(submitButton);
 
-    // In test environment, check for success message instead of navigation
+    // In test environment, check for success message (demo mode)
     await waitFor(
       () => {
         expect(
-          screen.getByText(
-            'Thank you! Your message has been sent successfully.'
-          )
+          screen.getByText(/Thank you! Your message has been received/)
         ).toBeInTheDocument();
       },
       { timeout: 3000 }
@@ -258,7 +275,7 @@ describe('Contact Component', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('Privacy consent is required')
+        screen.getByText(locale.contact.form.validation.privacyRequired)
       ).toBeInTheDocument();
     });
 
