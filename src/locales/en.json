@@ -24,19 +24,19 @@
     "topOfferBadge": "Top Offer",
     "items": [
       {
-        "title": "Mobile Applications",
-        "description": "Do you want to turn your requirements into beautiful mobile apps?\n\nLet me help!",
-        "imageAlt": "Mobile Applications icon"
+        "title": "Integrate AI",
+        "description": "Embed intelligent capabilities into your product.\n\nCustomer support chatbots, business intelligence and trend analysis, personalized recommendations.",
+        "imageAlt": "Integrate AI icon"
       },
       {
-        "title": "Cloud Migration",
-        "description": "Do you want to use cloud architecture like AWS in your product?\n\nLet me help!",
-        "imageAlt": "Cloud Migration icon"
+        "title": "Migrate to Cloud",
+        "description": "Scale your infrastructure with enterprise-grade cloud solutions.\n\nCost analysis and reduction, performance optimizations, secure deployment on AWS, GCP, or Azure.",
+        "imageAlt": "Migrate to Cloud icon"
       },
       {
-        "title": "Freelancing",
-        "description": "Do you want someone extra to help out building of your product?\n\nLet me help!",
-        "imageAlt": "Freelancing icon"
+        "title": "Freelance",
+        "description": "Custom web and mobile development tailored to your needs.\n\nResponsive web and mobile apps, custom backend services, from concept to deployment.",
+        "imageAlt": "Freelance icon"
       }
     ]
   },
