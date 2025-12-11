@@ -65,8 +65,10 @@ const Home = () => {
     return {
       id: index + 1,
       ...service,
-      icon: ['/mobile-200h.png', '/cloud-200h.png', '/desk-200h.png'][index],
-      topOffer: index === 0 || index === 2,
+      icon: ['/integrate-ai.png', '/migrate-to-cloud.png', '/freelance.png'][
+        index
+      ],
+      topOffer: index === 0 || index === 1,
       altText: service.imageAlt,
     };
   });
